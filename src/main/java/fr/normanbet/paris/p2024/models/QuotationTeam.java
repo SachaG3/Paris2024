@@ -8,9 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Quotation_team {
-    private int quotation;
+public class QuotationTeam extends Quotation {
     @ManyToOne
     private Country country;
-
 }
