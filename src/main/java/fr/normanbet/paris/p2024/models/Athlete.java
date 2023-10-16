@@ -1,6 +1,6 @@
 package fr.normanbet.paris.p2024.models;
 
-import fr.normanbet.paris.models.types.GenreType;
+import fr.normanbet.paris.p2024.models.types.GenreType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

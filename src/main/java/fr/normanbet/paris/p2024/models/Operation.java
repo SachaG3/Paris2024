@@ -1,5 +1,6 @@
 package fr.normanbet.paris.p2024.models;
 
+import fr.normanbet.paris.p2024.models.types.OperationType;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

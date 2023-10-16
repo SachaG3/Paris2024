@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import fr.normanbet.paris.p2024.models.types.Quotation;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
