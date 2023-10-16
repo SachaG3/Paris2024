@@ -1,0 +1,21 @@
+{{> /include/header}}
+
+
+<h1>Liste des News</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Contenu</th>
+        <th>Date</th>
+    </tr>
+    <tr th:each="news : ${newsList}">
+        <td th:text="${news.id}"></td>
+        <td th:text="${news.title}"></td>
+        <td th:text="${news.content}"></td>
+        <td th:text="${news.daten}"></td>
+    </tr>
+</table>
+
+
+{{> /include/footer}}
