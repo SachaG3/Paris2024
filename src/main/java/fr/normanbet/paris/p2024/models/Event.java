@@ -1,20 +1,41 @@
 package fr.normanbet.paris.p2024.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.EqualsAndHashCode;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
+@Entity
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Include
-    private Date dateEvent;
+    private Long id;
+
+    private LocalDateTime dateEvent;
+
     private boolean terminated;
+
+    @Column(length = 100)
+    private String description;
+
+    @Column(length = 150)
+    private String location;
+
+    @OneToMany(mappedBy = "event")
+    private Set<Quotation> quotations=new HashSet<>();
+
+    @ManyToOne
+    private Discipline discipline;
+
+    @ManyToOne
+    private Olympiad olympiad;
+
+    @ManyToOne
+    private City city;
+
 }
