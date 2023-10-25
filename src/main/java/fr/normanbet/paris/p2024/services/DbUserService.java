@@ -28,17 +28,12 @@ public class DbUserService implements UserDetailsService {
             UserDetails userDetails = org.springframework.security.core.userdetails.User
                     .withUsername(user.getLogin())
                     .password(user.getPassword())
-                    .roles("admin","user")
                     .build();
             return userDetails;
         } else {
             throw new UsernameNotFoundException("Utilisateur non trouvé : " + username);
         }
     }
-
-
-
-
 
     public void encodePassword(User user) {
         user.setPassword(pEncoder.encode(user.getPassword()));

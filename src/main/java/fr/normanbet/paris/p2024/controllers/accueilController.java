@@ -3,11 +3,13 @@ package fr.normanbet.paris.p2024.controllers;
 import fr.normanbet.paris.p2024.models.News;
 import fr.normanbet.paris.p2024.models.User;
 import fr.normanbet.paris.p2024.repositories.NewsRepository;
+import fr.normanbet.paris.p2024.repositories.UserRepository;
 import fr.normanbet.paris.p2024.services.DbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -21,10 +23,11 @@ import java.util.List;
 public class accueilController {
     @Autowired
     private NewsRepository newsRepository;
+    @Autowired
+    private UserRepository uRepository;
 
     @GetMapping("/")
-    public String Accueil(Model model,@AuthenticationPrincipal User user){
-        System.out.println("utilisateur = "+ user);
+    public String Accueil(Model model,@AuthenticationPrincipal UserDetails  user){
         List<News> element1 = newsRepository.findAllByOrderByDateNDesc(PageRequest.of(0, 6));
         model.addAttribute("element1", element1.get(0));
         model.addAttribute("element2", element1.get(1));

@@ -6,14 +6,17 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<div class="container">
 {{#user}}
-<span class="badge bg-success">{{login}}</span>
+<span class="badge bg-success">{{username}}</span>
 <a href="/logout" class="btn btn-danger">Se déconnecter</a>
+    <a class="btn" href="/user/{{username}}">Profil</a>
 {{/user}}
 {{^user}}
 <span class="badge bg-secondary">Non connecté </span>
 <a href="/login" class="btn btn-primary">Se connecter</a>
 {{/user}}
+</div>
 <!--Container-->
 <div class="container">
     <div class="row mb-2">
