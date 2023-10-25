@@ -20,19 +20,9 @@ public class DbUserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder pEncoder;
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optUser = uRepo.findByLogin(username);
-        if (optUser.isPresent()) {
-            User user = optUser.get();
-            UserDetails userDetails = org.springframework.security.core.userdetails.User
-                    .withUsername(user.getLogin())
-                    .password(user.getPassword())
-                    .build();
-            return userDetails;
-        } else {
-            throw new UsernameNotFoundException("Utilisateur non trouvé : " + username);
-        }
+        Optional<User> optUser=uRepo.findByLogin(username);
+        return optUser.orElse(null);
     }
 
     public void encodePassword(User user) {

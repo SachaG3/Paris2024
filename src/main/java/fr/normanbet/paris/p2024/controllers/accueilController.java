@@ -27,7 +27,7 @@ public class accueilController {
     private UserRepository uRepository;
 
     @GetMapping("/")
-    public String Accueil(Model model,@AuthenticationPrincipal UserDetails  user){
+    public String Accueil(Model model,@AuthenticationPrincipal User  user){
         List<News> element1 = newsRepository.findAllByOrderByDateNDesc(PageRequest.of(0, 6));
         model.addAttribute("element1", element1.get(0));
         model.addAttribute("element2", element1.get(1));

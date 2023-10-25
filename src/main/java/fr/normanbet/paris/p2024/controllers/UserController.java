@@ -46,18 +46,10 @@ public class UserController {
         }
     }
     @GetMapping("/user/{login}")
-    public String profil(Model model, @AuthenticationPrincipal UserDetails authenticatedUser) {
-        if (authenticatedUser != null) {
-            Optional<User> userOptional = userRepository.findByLogin(authenticatedUser.getUsername());
-            if (userOptional.isPresent()) {
-                User user = userOptional.get();
-                model.addAttribute("user", user);
-                return "userBoard";
-            } else {
-                // Gérer le cas où l'utilisateur n'est pas trouvé
-            }
-        }
-        return "redirect:/";
+    public String profil(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute(user);
+        return "userBoard";
+
     }
 
 
