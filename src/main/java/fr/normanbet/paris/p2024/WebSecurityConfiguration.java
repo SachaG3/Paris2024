@@ -27,12 +27,18 @@ public class WebSecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(
                         (req)->req.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),AntPathRequestMatcher.antMatcher("/register"),
                                         AntPathRequestMatcher.antMatcher("/css/**"),
+                                        AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/images/**"))
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 ).formLogin(
-                        (form)-> form.loginPage("/login").permitAll())
+                        (form)-> form.loginPage("/login")
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/")
+                                .failureUrl("/login")
+                                .permitAll())
+                .logout((logout) -> logout.logoutSuccessUrl("/login"))
                 .headers(
                         (headers)->headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 );

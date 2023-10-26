@@ -22,19 +22,19 @@ public class User implements UserDetails {
 
     @Getter
     @Column(length = 50,unique = true)
-    private String login ="";
+    private String login ;
 
     @Column(length = 255)
-    private String password ="";
+    private String password ;
 
     @Column(length = 50)
-    private String firstname ="";
+    private String firstname ;
 
     @Column(length = 50)
-    private String lastname="";
+    private String lastname;
 
-    @Column(length = 255)
-    private String email="";
+    @Column(length = 255,unique = true)
+    private String email;
 
     @ManyToOne
     private Role role;
@@ -53,7 +53,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
     }
     @Override
     public String getUsername() {

@@ -3,7 +3,9 @@ package fr.normanbet.paris.p2024.controllers;
 import fr.normanbet.paris.p2024.services.DbUserService;
 import fr.normanbet.paris.p2024.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -33,9 +35,21 @@ public class UserController {
 
     @PostMapping("register")
     public String createUserSubmit(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        ((DbUserService)uDetailService).encodePassword(user);
+
+
+        Optional<User> existingUserLogin = userRepository.findByLogin(user.getLogin());
+        Optional<User> existingUserEmail = userRepository.findByEmail(user.getEmail());
+        if (existingUserLogin.isPresent()||existingUserEmail.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Ce login ou Email est déjà utilisé par un autre utilisateur");
+            return "redirect:/register";
+        }
 
         User savedUser = userRepository.save(user);
+
+
+        ((DbUserService)uDetailService).encodePassword(user);
+
+
 
         if (savedUser != null) {
             redirectAttributes.addFlashAttribute("message", "Utilisateur créé avec succès");
