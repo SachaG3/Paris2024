@@ -28,17 +28,8 @@ public class accueilController {
 
     @GetMapping("/")
     public String Accueil(Model model,@AuthenticationPrincipal User  user){
-        try {
-            List<News> element1 = newsRepository.findAllByOrderByDateNDesc(PageRequest.of(0, 6));
-            model.addAttribute("element1", element1.get(0));
-            model.addAttribute("element2", element1.get(1));
-            model.addAttribute("element3", element1.get(2));
-            model.addAttribute("element4", element1.get(3));
-            model.addAttribute("element5", element1.get(4));
-
-        } catch(Exception e) {
-            model.addAttribute("error", "Une erreur est survenue lors de la récupération des derniers articles");
-        }
+        List<News> element1 = newsRepository.findAllByOrderByDateNDesc(PageRequest.of(0, 6));
+        model.addAttribute("news", element1);
         model.addAttribute("user",user);
         return("Accueil");
     }
