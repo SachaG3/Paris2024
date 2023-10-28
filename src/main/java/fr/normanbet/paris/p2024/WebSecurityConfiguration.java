@@ -34,9 +34,8 @@ public class WebSecurityConfiguration {
                                 .authenticated()
                 ).formLogin(
                         (form)-> form.loginPage("/login")
-                                .loginPage("/login")
                                 .defaultSuccessUrl("/")
-                                .failureUrl("/login")
+                                .failureUrl("/login?error=true")
                                 .permitAll())
                 .logout((logout) -> logout.logoutSuccessUrl("/login"))
                 .headers(

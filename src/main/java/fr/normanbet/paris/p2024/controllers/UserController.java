@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,23 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private UserDetailsService uDetailService;
-
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    @PostMapping("/login")
+    public String handleLogin(@RequestParam String login, @RequestParam String password, Model model) {
+        Optional<User> optionalUser = userRepository.findByLogin(login);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return "redirect:/";
+            }
+        }
+        return "login";
+    }
     @GetMapping("register")
     public String createUserForm(Model model) {
         model.addAttribute("user", new User());
