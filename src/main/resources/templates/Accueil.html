@@ -6,7 +6,17 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<div class="container">
+{{#user}}
+<span class="badge bg-success">{{username}}</span>
+<a href="/logout" class="btn btn-danger">Se déconnecter</a>
+    <a class="btn" href="/user/{{username}}">Profil</a>
+{{/user}}
+{{^user}}
+<span class="badge bg-secondary">Non connecté </span>
+<a href="/login" class="btn btn-primary">Se connecter</a>
+{{/user}}
+</div>
 <!--Container-->
 <div class="container">
     <div class="row mb-2">
@@ -26,7 +36,7 @@
 
                         <!--carousel inner-->
                         <div class="carousel-inner">
-                            {{#element1}}
+                            {{#news.0}}
                                     <div class="position-relative">
                                         <!--thumbnail img-->
                                         <div class="ratio_left-cover-1 image-wrapper">
@@ -49,7 +59,7 @@
 
                                 </div>
                             </div>
-                            {{/element1}}
+                            {{/news.0}}
                         </div>
                     </div>
                 </div>
@@ -61,7 +71,7 @@
 
                     <div class="row">
                         <!--news box-->
-                        {{#element2}}
+                        {{#news.1}}
                         <div class="col-6 pb-1 pt-0 pr-1">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
 
@@ -87,10 +97,10 @@
 
                             </div>
                         </div>
-                        {{/element2}}
+                        {{/news.1}}
 
                         <!--news box-->
-                        {{#element3}}
+                        {{#news.2}}
                         <div class="col-6 pb-1 pl-1 pt-0">
 
                             <div class="card border-0 rounded-0 text-white overflow zoom">
@@ -117,10 +127,10 @@
                             </div>
 
                         </div>
-                        {{/element3}}
+                        {{/news.2}}
 
                         <!--news box-->
-                        {{#element4}}
+                        {{#news.3}}
                         <div class="col-6 pb-1 pr-1 pt-1">
 
                             <div class="card border-0 rounded-0 text-white overflow zoom">
@@ -144,10 +154,10 @@
                             </div>
 
                         </div>
-                        {{/element4}}
+                        {{/news.3}}
 
                         <!--news box-->
-                        {{#element5}}
+                        {{#news.4}}
                         <div class="col-6 pb-1 pl-1 pt-1">
                             <div class="card border-0 rounded-0 text-white overflow zoom">
                                 <div class="position-relative">
@@ -169,7 +179,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{/element5}}
+                        {{/news.4}}
                         <!--end news box-->
                     </div>
                 </div>

@@ -2,33 +2,38 @@ package fr.normanbet.paris.p2024.models;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Getter
     @Column(length = 50,unique = true)
-    private String login;
+    private String login ;
 
     @Column(length = 255)
-    private String password;
+    private String password ;
 
     @Column(length = 50)
-    private String firstname;
+    private String firstname ;
 
     @Column(length = 50)
     private String lastname;
 
-    @Column(length = 255)
+    @Column(length = 255,unique = true)
     private String email;
 
     @ManyToOne
@@ -40,5 +45,41 @@ public class User {
     @ManyToMany
     private List<OlympicElement> favorites=new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return login+ " ("+email+")";
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
+    }
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
 
