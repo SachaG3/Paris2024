@@ -17,6 +17,7 @@ public class disciplineController {
     @Autowired
     private DisciplineRepository disciplineRepository;
 
+
     @GetMapping("")
     public String listDisciplines(Model model) {
         List<Discipline> disciplinesList = (List<Discipline>) disciplineRepository.findAll();
@@ -35,19 +36,19 @@ public class disciplineController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Optional<Discipline> discipline = disciplineRepository.findById(id);
         if (discipline.isPresent()) {
-            model.addAttribute("discipline", discipline.get());
+            model.addAttribute("disciplineedit", discipline.get());
             return "epreuves"; // Afficher la vue epreuves.html (avec le formulaire d'édition)
         }
         return "redirect:/epreuves";
     }
-
     @PostMapping("edit/{id}")
     public String updateDiscipline(@PathVariable Long id, @ModelAttribute Discipline updatedDiscipline) {
-        updatedDiscipline.setId(id);
-        disciplineRepository.save(updatedDiscipline);
+        if (disciplineRepository.existsById(id)) {
+            updatedDiscipline.setId(id);
+            disciplineRepository.save(updatedDiscipline);
+        }
         return "redirect:/epreuves";
     }
-
     @GetMapping("delete/{id}")
     public String deleteDiscipline(@PathVariable Long id) {
         disciplineRepository.deleteById(id);
