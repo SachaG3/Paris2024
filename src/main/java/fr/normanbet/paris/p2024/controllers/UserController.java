@@ -1,5 +1,7 @@
 package fr.normanbet.paris.p2024.controllers;
 
+import fr.normanbet.paris.p2024.models.Role;
+import fr.normanbet.paris.p2024.repositories.RoleRepository;
 import fr.normanbet.paris.p2024.services.DbUserService;
 import fr.normanbet.paris.p2024.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class UserController {
     private UserDetailsService uDetailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository ;
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -60,10 +64,14 @@ public class UserController {
             return "redirect:/register";
         }
 
+        Role role = roleRepository.getOne(1L);
+        user.setRole(role);
+
+        ((DbUserService)uDetailService).encodePassword(user);
         User savedUser = userRepository.save(user);
 
 
-        ((DbUserService)uDetailService).encodePassword(user);
+
 
 
 
