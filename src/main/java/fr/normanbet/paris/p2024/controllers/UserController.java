@@ -67,6 +67,7 @@ public class UserController {
         Role role = roleRepository.getOne(1L);
         user.setRole(role);
 
+
         ((DbUserService)uDetailService).encodePassword(user);
         User savedUser = userRepository.save(user);
 
