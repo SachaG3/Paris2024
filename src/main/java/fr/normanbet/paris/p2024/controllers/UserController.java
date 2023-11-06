@@ -59,11 +59,11 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "Ce login ou Email est déjà utilisé par un autre utilisateur");
             return "redirect:/register";
         }
-
+        ((DbUserService)uDetailService).encodePassword(user);
         User savedUser = userRepository.save(user);
 
 
-        ((DbUserService)uDetailService).encodePassword(user);
+
 
 
 
