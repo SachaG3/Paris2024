@@ -32,6 +32,12 @@ public class News {
 
     private LocalDateTime dateN;
 
+    private String mainImg;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
+
     @ManyToMany(mappedBy = "news")
     private List<OlympicElement> links=new ArrayList<>();
 }
