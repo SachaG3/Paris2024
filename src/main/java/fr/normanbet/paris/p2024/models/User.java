@@ -45,6 +45,7 @@ public class User implements UserDetails {
     @ManyToMany
     private List<OlympicElement> favorites=new ArrayList<>();
 
+    private boolean active;
     @Override
     public String toString() {
         return login+ " ("+email+")";
@@ -79,7 +80,9 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
+
+
 }
 

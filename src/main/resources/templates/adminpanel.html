@@ -1,0 +1,29 @@
+{{> include/header}}
+
+<h1>Panneau d'administration</h1>
+<h2>Liste des Utilisateurs</h2>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Rôles</th>
+        <th>Login</th>
+        <th>Actions</th>
+    </tr>
+    {{#users}}
+    <tr>
+        <td>{{role.name}}</td>
+        <td>{{login}}</td>
+        <td>
+            {{#active}}
+            <a href="/deactivate/{{id}}" class="btn btn-danger">désactiver le compte</a>
+            <a href="/informationuser/{{id}}" class="btn btn-primary">Afficher informations</a>
+            {{/active}}
+            {{^active}}
+            <a href="/activate/{{id}}" class="btn btn-success">Réactiver le compte</a>
+            <a href="/informationuser/{{id}}" class="btn btn-primary">Afficher informations</a>
+            {{/active}}
+        </td>
+    </tr>
+    {{/users}}
+</table>
+
+{{> include/footer}}
