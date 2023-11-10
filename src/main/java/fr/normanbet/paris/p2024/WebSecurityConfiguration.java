@@ -25,7 +25,10 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(
-                        (req)->req.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),AntPathRequestMatcher.antMatcher("/register"),
+                        (req)->req.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
+                                        AntPathRequestMatcher.antMatcher("/confirmation"),
+                                        AntPathRequestMatcher.antMatcher("/regitrationConfirm"),
+                                        AntPathRequestMatcher.antMatcher("/register"),
                                         AntPathRequestMatcher.antMatcher("/css/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/images/**"))
