@@ -7,7 +7,6 @@ import fr.normanbet.paris.p2024.models.VerificationToken;
 import fr.normanbet.paris.p2024.repositories.UserRepository;
 import fr.normanbet.paris.p2024.repositories.VerificationTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
