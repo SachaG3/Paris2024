@@ -37,10 +37,13 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void createVerificationToken(User user, String token) {
+    public void createVerificationToken(User user, String newToken) {
+        Optional<VerificationToken> existingToken = tokenRepository.findByUserId(user.getId());
+        existingToken.ifPresent(token -> tokenRepository.delete(token));
+
         VerificationToken myToken = new VerificationToken();
         myToken.setUser(user);
-        myToken.setToken(token);
+        myToken.setToken(newToken);
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MINUTE, 10);
@@ -48,6 +51,7 @@ public class UserService {
 
         tokenRepository.save(myToken);
     }
+
 
     public VerificationToken getVerificationToken(String VerificationToken) {
         return tokenRepository.findByToken(VerificationToken);

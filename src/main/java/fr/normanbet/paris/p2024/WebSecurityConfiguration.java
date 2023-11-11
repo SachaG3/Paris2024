@@ -27,6 +27,10 @@ public class WebSecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(
                         (req)->req.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
                                         AntPathRequestMatcher.antMatcher("/confirmation"),
+                                        AntPathRequestMatcher.antMatcher("/resendValidationEmail"),
+                                        AntPathRequestMatcher.antMatcher("/mailvalidation"),
+                                        AntPathRequestMatcher.antMatcher("/badUser"),
+                                        AntPathRequestMatcher.antMatcher("/resendBadValidationEmail"),
                                         AntPathRequestMatcher.antMatcher("/regitrationConfirm"),
                                         AntPathRequestMatcher.antMatcher("/register"),
                                         AntPathRequestMatcher.antMatcher("/css/**"),

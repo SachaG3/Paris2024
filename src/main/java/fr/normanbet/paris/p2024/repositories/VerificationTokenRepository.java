@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface VerificationTokenRepository extends JpaRepository<VerificationToken, Long> {
     VerificationToken findByToken(String token);
+
+    Optional<VerificationToken> findByUserId(Long userId);
 }

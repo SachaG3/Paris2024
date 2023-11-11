@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public String createUserSubmit(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+    public String createUserSubmit(@ModelAttribute User user, RedirectAttributes redirectAttributes, Model model) {
 
 
         Optional<User> existingUserLogin = userRepository.findByLogin(user.getLogin());
@@ -102,37 +102,94 @@ public class UserController {
 
 
             redirectAttributes.addFlashAttribute("message", "Utilisateur créé avec succès");
-            return "/login";
+            model.addAttribute("userId", savedUser.getId());
+            System.out.println(savedUser.getId());
+            return "/mailvalidation";
         } else {
             redirectAttributes.addFlashAttribute("error", "Échec de la création de l'utilisateur");
             return "redirect:/register";
         }
     }
+
+    @PostMapping("/resendValidationEmail")
+    public String resendValidationEmail(@RequestParam Long userId, RedirectAttributes redirectAttributes,Model model) {
+        System.out.println("passer");
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user != null && !user.isActive()) {
+            System.out.println("passer 2");
+            String token = UUID.randomUUID().toString();
+            userService.createVerificationToken(user, token);
+
+            String recipientAddress = user.getEmail();
+            String subject = "Confirmation d'inscription - Renvoi";
+            String confirmationUrl = "http://localhost:8080/regitrationConfirm?token=" + token;
+            String message = "Pour confirmer votre inscription, veuillez ouvrir le lien suivant : " + confirmationUrl;
+
+            emailService.sendSimpleMessage(recipientAddress, subject, message);
+
+            redirectAttributes.addFlashAttribute("message", "Un nouvel e-mail de confirmation a été envoyé.");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Impossible de renvoyer l'e-mail de confirmation.");
+        }
+        model.addAttribute("userId",user.getId());
+        return "/mailvalidation";
+    }
+    @PostMapping("/resendBadValidationEmail")
+    public String resendValidationEmail(@RequestParam String email, RedirectAttributes redirectAttributes,Model model) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (!userOptional.isPresent()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Aucun compte trouvé avec cet e-mail.");
+            return "redirect:/badUser";
+        }
+
+        User user = userOptional.get();
+        if (user.isEnabled()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Ce compte est déjà activé.");
+            return "redirect:/login";
+        }
+
+        String token = UUID.randomUUID().toString();
+        userService.createVerificationToken(user, token);
+
+        String recipientAddress = user.getEmail();
+        String subject = "Confirmation d'inscription - Renvoi";
+        String confirmationUrl = "http://localhost:8080/regitrationConfirm?token=" + token;
+        String message = "Pour confirmer votre inscription, veuillez ouvrir le lien suivant : " + confirmationUrl;
+        emailService.sendSimpleMessage(recipientAddress, subject, message);
+
+        redirectAttributes.addFlashAttribute("message", "Un e-mail de validation a été renvoyé.");
+        model.addAttribute("userId",user.getId());
+        return "/mailvalidation";
+    }
     @GetMapping("/regitrationConfirm")
     public String confirmRegistration(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (verificationToken == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid token.");
-            return "redirect:/badUser";
+            System.out.println("test");
+            redirectAttributes.addFlashAttribute("errorMessage", "Mauvais token.");
+            return "/badUser";
         }
 
         User user = verificationToken.getUser();
         if (user.isEnabled()) {
-            redirectAttributes.addFlashAttribute("message", "Your account is already activated.");
+            redirectAttributes.addFlashAttribute("message", "Compte déjà activé.");
             return "redirect:/login";
         }
 
         if (verificationToken.getExpiryDate().before(new Date())) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Your token has expired.");
+            redirectAttributes.addFlashAttribute("errorMessage", "le token à été expiré.");
             return "redirect:/badUser";
         }
         user.setActive(true);
 
         userService.save(user);
 
-        redirectAttributes.addFlashAttribute("message", "Your account has been activated successfully.");
+        redirectAttributes.addFlashAttribute("message", "Compte activé.");
         return "redirect:/login";
     }
+
     @GetMapping("/user/{login}")
     public String profil(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute(user);
