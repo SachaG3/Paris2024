@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import fr.normanbet.paris.p2024.models.User;
 import fr.normanbet.paris.p2024.repositories.UserRepository;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -88,6 +89,13 @@ public class UserController {
         model.addAttribute(user);
         return "userBoard";
 
+    }
+
+    @PostMapping("/user/deleteAccount")
+    public String deleteAccount(@AuthenticationPrincipal User user, RedirectAttributes redirectAttributes) {
+        userRepository.delete(user);
+        redirectAttributes.addFlashAttribute("message", "Votre compte a été supprimé.");
+        return "/login";
     }
 
 
