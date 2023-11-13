@@ -1,0 +1,31 @@
+{{> include/header}}
+
+<h1>Création d'un Nouveau Sport</h1>
+
+<form action="/ajouterunsport" method="post">
+    <div>
+        <label for="name">Nom du Sport <span>(obligatoire)</span>:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+
+    <div>
+        <label for="parentId">Discipline Associée :</label>
+        <select id="parentId" name="parentId">
+            {{#disciplines}}
+            <option value="{{id}}">{{name}}</option>
+            {{/disciplines}}
+        </select>
+    </div>
+
+
+    <div>
+        <label for="individual">Sport Individuel :</label>
+        <input type="checkbox" id="individual" name="individual" {{#individual}}checked{{/individual}}>
+    </div>
+
+    <button type="submit">Créer Sport</button>
+</form>
+
+
+
+{{> include/footer}}

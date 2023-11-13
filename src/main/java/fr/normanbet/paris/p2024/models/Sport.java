@@ -27,6 +27,11 @@ public class Sport extends OlympicElement{
     @OneToMany(mappedBy = "sport",cascade = CascadeType.ALL)
     private List<Discipline> disciplines=new ArrayList<>();
 
+    @Column(length = 150)
+    private String addedBy;
+
+    @Column(length = 150)
+    private String log;
 
     public void setDisciplinesLines(String lines){
         String[] disciplinesLines=lines.split("\r\n");

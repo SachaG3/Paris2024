@@ -1,0 +1,19 @@
+{{> include/header}}
+
+<h1>Journalisation des Ajouts de Sports</h1>
+
+<ul>
+    {{#sports}}
+    <li>
+        <strong>Utilisateur :</strong> {{addedBy}}
+        <br>
+        <strong>Contenu :</strong> {{log}}
+        <hr>
+    </li>
+    {{/sports}}
+</ul>
+
+<a href="/ajouterunsport" class="btn btn-primary">Retour</a>
+
+
+{{> include/footer}}
