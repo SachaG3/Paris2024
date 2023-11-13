@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,9 +27,19 @@ public class Operation {
 
     @ManyToOne
     private User user;
+
+    public boolean isDeposit() {
+        return OperationType.DEPOSIT.equals(this.type);
+    }
+
+    public boolean isWithdrawal() {
+        return OperationType.WITHDRAWAL.equals(this.type);
+    }
     public String getFormattedDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.FRANCE);
-        return dateFormat.format(this.dateO);
+        return dateO.format(DateTimeFormatter.ofPattern("EEEE d MMMM uuuu 'à' HH'h'mm'min' 'et' ss 'sc'"));
+    }
+    public String getFormattedTime() {
+        return dateO.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
     public String getTranslatedType() {
         switch (this.type) {

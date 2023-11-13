@@ -51,6 +51,8 @@ public class User implements UserDetails {
     private List<OlympicElement> favorites=new ArrayList<>();
 
     private boolean active;
+    private BigDecimal depositLimit;
+    private String depositLimitPeriod;
     @Override
     public String toString() {
         return login+ " ("+email+")";
@@ -87,6 +89,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
 
 }
 

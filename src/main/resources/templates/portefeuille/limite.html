@@ -1,0 +1,15 @@
+{{> /include/header }}
+<div class="container">
+    <a href="/portefeuille" class="btn btn-primary">Portefeuille</a>
+    <h1>Mes limites</h1>
+    <p>limite actuel: {{limite}} €</p>
+    <form action="/portefeuille/limite" method="post">
+        <input type="number" name="limit" min="0" placeholder="Entrer une limite" required>
+        <select name="period">
+            <option value="daily">Quotidienne</option>
+            <option value="weekly">Hebdomadaire</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Définir la limite</button>
+    </form>
+</div>
+{{> /include/footer}}

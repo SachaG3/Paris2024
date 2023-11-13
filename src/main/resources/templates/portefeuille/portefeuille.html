@@ -5,15 +5,15 @@
 
 <a href="/portefeuille/depot" class="btn btn-primary">Déposer de l'argent</a>
 <a href="/portefeuille/retrait" class="btn btn-primary">Retirer de l'argent</a>
-
+  <a href="/portefeuille/limite" class="btn btn-primary">limite de dépot</a>
 <h2>Dernières opérations</h2>
 <ul>
   {{#recentOperations}}
-  <li>{{dateO}} - {{type}} - {{amount}} €</li>
+  <li>{{formattedDate}} - {{TranslatedType}} - {{getFormattedAmount}}</li>
   {{/recentOperations}}
 </ul>
 
-<a href="/portefeuille/operations">Voir toutes les opérations</a>
+<a href="/portefeuille/operation" class="btn btn-primary">Voir toutes les opérations</a>
 </div>
 
 {{> /include/footer}}

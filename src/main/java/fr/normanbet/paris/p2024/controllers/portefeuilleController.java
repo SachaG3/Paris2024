@@ -5,6 +5,7 @@ import fr.normanbet.paris.p2024.models.User;
 import fr.normanbet.paris.p2024.repositories.OperationRepository;
 import fr.normanbet.paris.p2024.repositories.UserRepository;
 import fr.normanbet.paris.p2024.services.OperationService;
+import fr.normanbet.paris.p2024.services.UserService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class portefeuilleController {
     private OperationRepository operationRepository;
     @Autowired
     private OperationService operationService;
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping("")
     public String PortefeuillePage(@AuthenticationPrincipal User user, Model model) {
@@ -53,8 +57,8 @@ public class portefeuilleController {
         try {
             operationService.deposit(user, amount);
             redirectAttributes.addFlashAttribute("successMessage", "Dépôt réussi de " + amount + " €");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors du dépôt: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/portefeuille";
     }
@@ -74,10 +78,31 @@ public class portefeuilleController {
 
     @GetMapping("/operation")
     public String getAllOperationsPage(@AuthenticationPrincipal User user, Model model) {
-        List<Operation> allOperations = operationRepository.findByUser(user);
+        List<Operation> allOperations = operationRepository.findByUserOrderByDateODesc(user);
         model.addAttribute("allOperations", allOperations);
         return "portefeuille/operation";
     }
+
+    @PostMapping("/limite")
+    public String setDepositLimit(@AuthenticationPrincipal User user,
+                                  @RequestParam("limit") BigDecimal limit,
+                                  @RequestParam("period") String period,
+                                  RedirectAttributes redirectAttributes) {
+        // Logique pour définir la limite de dépôt
+        try {
+            userService.setDepositLimit(user, limit, period);
+            redirectAttributes.addFlashAttribute("successMessage", "Limite de dépôt définie avec succès.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la définition de la limite: " + e.getMessage());
+        }
+        return "redirect:/portefeuille";
+    }
+    @GetMapping("/limite")
+    public String limite(@AuthenticationPrincipal User user,Model model){
+        model.addAttribute("limite", user.getDepositLimit());
+        return "portefeuille/limite";
+    }
+
 
 }
 
