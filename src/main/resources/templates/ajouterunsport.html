@@ -1,5 +1,5 @@
 {{> include/header}}
-
+<div class="container">
 <h1>Création d'un Nouveau Sport</h1>
 
 <form action="/ajouterunsport" method="post">
@@ -27,5 +27,38 @@
 </form>
 
 
+    {{#successMessage}}
+    <div id="successMessage" class="alert alert-success" role="alert">
+        {{successMessage}}
+    </div>
+    {{/successMessage}}
 
+    {{#errorMessage}}
+    <div id="errorMessage" class="alert alert-danger" role="alert">
+        {{errorMessage}}
+    </div>
+    {{/errorMessage}}
+
+    <script>
+        function hideMessages() {
+            setTimeout(function() {
+                var successMessage = document.getElementById('successMessage');
+                var errorMessage = document.getElementById('errorMessage');
+
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            }, 2000);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            hideMessages();
+        });
+    </script>
+
+
+</div>
 {{> include/footer}}

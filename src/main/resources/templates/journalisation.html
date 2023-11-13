@@ -1,19 +1,25 @@
 {{> include/header}}
+<div class="container">
+    <h1>Journalisation des Ajouts de Sports</h1>
 
-<h1>Journalisation des Ajouts de Sports</h1>
+    <form action="/ajouterunsport/journalisation" method="post">
+        <input type="hidden" name="_method" value="DELETE">
 
-<ul>
-    {{#sports}}
-    <li>
-        <strong>Utilisateur :</strong> {{addedBy}}
-        <br>
-        <strong>Contenu :</strong> {{log}}
-        <hr>
-    </li>
-    {{/sports}}
-</ul>
+        <ul>
+            {{#sports}}
+            <li>
+                <input type="checkbox" name="selectedSports" value="{{id}}">
+                <strong>Utilisateur :</strong> {{addedBy}}
+                <br>
+                <strong>Contenu :</strong> {{name}}
+                <hr>
+            </li>
+            {{/sports}}
+        </ul>
 
-<a href="/ajouterunsport" class="btn btn-primary">Retour</a>
+        <button type="submit" class="btn btn-danger">Supprimer les éléments sélectionnés</button>
+    </form>
 
-
+    <a href="/ajouterunsport" class="btn btn-primary">Retour</a>
+</div>
 {{> include/footer}}
