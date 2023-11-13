@@ -1,0 +1,22 @@
+{{> /include/header }}
+
+<h1>Toutes les opérations</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Montant</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#allOperations}}
+  <tr>
+    <td>{{dateO}}</td>
+    <td>{{type}}</td>
+    <td>{{amount}} €</td>
+  </tr>
+  {{/allOperations}}
+  </tbody>
+</table>
+{{> /include/footer}}

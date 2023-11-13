@@ -1,0 +1,19 @@
+{{> /include/header }}
+<div class="container">
+<h1>Mon portefeuille</h1>
+<p>Solde actuel: {{balance}} €</p>
+
+<a href="/portefeuille/depot" class="btn btn-primary">Déposer de l'argent</a>
+<a href="/portefeuille/retrait" class="btn btn-primary">Retirer de l'argent</a>
+
+<h2>Dernières opérations</h2>
+<ul>
+  {{#recentOperations}}
+  <li>{{dateO}} - {{type}} - {{amount}} €</li>
+  {{/recentOperations}}
+</ul>
+
+<a href="/portefeuille/operations">Voir toutes les opérations</a>
+</div>
+
+{{> /include/footer}}
