@@ -29,12 +29,12 @@ public class rechercheSportAthleteController {
     }
 
     @PostMapping("/recherche")
-    public String sportsSearchAction(@RequestParam("nomSport") String text, Model model) {
+    public String sportsSearchAction(@RequestParam("nomSport") String text, Model model, String description) {
         text = "%" + text + "%";
-        List<Sport> sportList = sportRepository.findByNameOrDescriptionIgnoreCase(text);
+        List<Sport> sportList = sportRepository.findByNameOrDescriptionIgnoreCase(text, description);
         model.addAttribute("sportList", sportList);
         List<Athlete> athleteList = (List<Athlete>) athleteRepository.findAll();
         model.addAttribute("athleteList", athleteList);
-        return "rechercher";
+        return "recherche";
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface SportRepository extends CrudRepository<Sport, Long> {
     public Sport findFirstByNameOrDescriptionIgnoreCase(String name,String description);
 
-    List<Sport> findByNameOrDescriptionIgnoreCase(String name);
+    List<Sport> findByNameOrDescriptionIgnoreCase(String name, String description);
 }
