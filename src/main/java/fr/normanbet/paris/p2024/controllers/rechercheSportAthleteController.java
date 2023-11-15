@@ -22,19 +22,19 @@ public class rechercheSportAthleteController {
     @Autowired
     private AthleteRepository athleteRepository;
 
-    @GetMapping("/recherche")
+    @GetMapping("/rechercheSportsAthletes")
     public void sportsActualites(Model model) {
         List<Sport> sportList = (List<Sport>) sportRepository.findAll();
         List<Athlete> athleteList = (List<Athlete>) athleteRepository.findAll();
     }
 
-    @PostMapping("/recherche")
+    @PostMapping("/rechercheSportsAthletes")
     public String sportsSearchAction(@RequestParam("nomSport") String text, Model model, String description) {
         text = "%" + text + "%";
         List<Sport> sportList = sportRepository.findByNameOrDescriptionIgnoreCase(text, description);
         model.addAttribute("sportList", sportList);
         List<Athlete> athleteList = (List<Athlete>) athleteRepository.findAll();
         model.addAttribute("athleteList", athleteList);
-        return "recherche";
+        return "rechercheSportsAthletes";
     }
 }

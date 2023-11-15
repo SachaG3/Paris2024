@@ -1,18 +1,42 @@
 {{> /include/header}}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Rechercher</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rechercher</title>
 
-<body>
+
     <form action="/recherche" method="GET">
         <label for="search">Recherche :</label>
         <input type="text" id="search" name="q" placeholder="Rechercher...">
         <button type="submit">Rechercher</button>
     </form>
-</body>
 
-</html>
+<table>
+    <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+    </tr>
+    {{#athleteList}}
+    <tr>
+        <td>{{firstname}}</td>
+        <td>{{lastname}}</td>
+    </tr>
+    {{/athleteList}}
+</table>
+
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Description</th>
+    </tr>
+    {{#sportList}}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{description}}</td>
+    </tr>
+    {{/sportList}}
+</table>
+
+
 
 {{> /include/footer}}
