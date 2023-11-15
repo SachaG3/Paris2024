@@ -2,22 +2,42 @@
 <div class="container">
     <h1>Journalisation des Ajouts de Sports</h1>
 
-    <form action="/ajouterunsport/journalisation" method="post">
+    <!-- Supprimer de la journalisation -->
+    <form action="/ajouterunsport/journalisation/delete" method="post">
         <input type="hidden" name="_method" value="DELETE">
 
         <ul>
-            {{#sports}}
+            {{#journalisations}}
             <li>
-                <input type="checkbox" name="selectedSports" value="{{id}}">
+                <input type="checkbox" name="selectedItems" value="{{id}}">
                 <strong>Utilisateur :</strong> {{addedBy}}
                 <br>
-                <strong>Contenu :</strong> {{name}}
+                <strong>Contenu :</strong> {{sportName}}
                 <hr>
             </li>
-            {{/sports}}
+            {{/journalisations}}
         </ul>
 
-        <button type="submit" class="btn btn-danger">Supprimer les éléments sélectionnés</button>
+        <button type="submit" class="btn btn-danger">Supprimer les éléments sélectionnés (Journalisation)</button>
+    </form>
+
+    <!-- Supprimer de la base de données -->
+    <form action="/ajouterunsport/journalisation/delete-sport" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+
+        <ul>
+            {{#journalisations}}
+            <li>
+                <input type="checkbox" name="selectedItems" value="{{sport.id}}">
+                <strong>Utilisateur :</strong> {{addedBy}}
+                <br>
+                <strong>Contenu :</strong> {{sportName}}
+                <hr>
+            </li>
+            {{/journalisations}}
+        </ul>
+
+        <button type="submit" class="btn btn-danger">Supprimer les éléments sélectionnés (Base de données)</button>
     </form>
 
     <a href="/ajouterunsport" class="btn btn-primary">Retour</a>
