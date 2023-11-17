@@ -8,33 +8,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/rechercheSportsAthletes")
 public class rechercheSportAthleteController {
 
     @Autowired
+    private AthleteRepository athleteRepository;
+    @Autowired
     private SportRepository sportRepository;
 
-    @Autowired
-    private AthleteRepository athleteRepository;
+    @GetMapping
+    public String searchSportsAthletes(@RequestParam(name = "q", required = false) String query, Model model) {
+        List<Athlete> athleteList = athleteRepository.findByFirstnameIgnoreCaseContainingOrLastnameIgnoreCaseContaining(query, query);
+        List<Sport> sportList = sportRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
 
-    @GetMapping("/rechercheSportsAthletes")
-    public void sportsActualites(Model model) {
-        List<Sport> sportList = (List<Sport>) sportRepository.findAll();
-        List<Athlete> athleteList = (List<Athlete>) athleteRepository.findAll();
-    }
-
-    @PostMapping("/rechercheSportsAthletes")
-    public String sportsSearchAction(@RequestParam("nomSport") String text, Model model, String description) {
-        text = "%" + text + "%";
-        List<Sport> sportList = sportRepository.findByNameOrDescriptionIgnoreCase(text, description);
-        model.addAttribute("sportList", sportList);
-        List<Athlete> athleteList = (List<Athlete>) athleteRepository.findAll();
         model.addAttribute("athleteList", athleteList);
+        model.addAttribute("sportList", sportList);
+
         return "rechercheSportsAthletes";
     }
 }

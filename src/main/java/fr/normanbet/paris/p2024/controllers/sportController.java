@@ -21,7 +21,7 @@ public class sportController {
         List<Sport> sports;
 
         if (query != null && !query.isEmpty()) {
-            sports = sportRepository.findByNameOrDescriptionIgnoreCase(query, query);
+            sports = sportRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
         } else {
             sports = (List<Sport>) sportRepository.findAll();
         }
