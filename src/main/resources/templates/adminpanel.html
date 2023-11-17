@@ -1,6 +1,14 @@
 {{> include/header}}
 
 <h1>Panneau d'administration</h1>
+
+<!-- Ajout de boutons de navigation -->
+<div>
+    <a href="/ajouterunsport" class="btn btn-primary">Ajouter un sport</a>
+    <a href="/ajouterunsport/journalisation" class="btn btn-primary">Journalisation</a>
+    <a href="/ajouterunathlete" class="btn btn-primary">Ajouter un athlète</a>
+</div>
+
 <h2>Liste des Utilisateurs</h2>
 <table class="table table-bordered table-striped">
     <tr>
@@ -14,7 +22,7 @@
         <td>{{login}}</td>
         <td>
             {{#active}}
-            <a href="/deactivate/{{id}}" class="btn btn-danger">désactiver le compte</a>
+            <a href="/deactivate/{{id}}" class="btn btn-danger">Désactiver le compte</a>
             <a href="/informationuser/{{id}}" class="btn btn-primary">Afficher informations</a>
             {{/active}}
             {{^active}}

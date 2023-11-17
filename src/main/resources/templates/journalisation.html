@@ -1,9 +1,10 @@
 {{> include/header}}
-<div class="container">
-    <h1>Journalisation des Ajouts de Sports</h1>
 
-    <!-- Supprimer de la journalisation -->
-    <form action="/ajouterunsport/journalisation/delete" method="post">
+<div class="container">
+    <h1><span class="titre-gris">Journalisation</span> <span class="titre-vert">des Ajouts de Sports</span></h1>
+
+    <!-- Supprimer de la journalisation et de la base de données -->
+    <form id="deleteForm" action="/ajouterunsport/journalisation/delete" method="post">
         <input type="hidden" name="_method" value="DELETE">
 
         <ul>
@@ -18,28 +19,19 @@
             {{/journalisations}}
         </ul>
 
-        <button type="submit" class="btn btn-danger">Supprimer les éléments sélectionnés (Journalisation)</button>
+        <button type="button" class="btn btn-danger" id="deleteButton">Supprimer de la base de données</button>
+        <button type="submit" class="btn btn-warning">Supprimer les logs</button>
+        <a href="/ajouterunsport" class="btn btn-primary">Retour</a>
     </form>
 
-    <!-- Supprimer de la base de données -->
-    <form action="/ajouterunsport/journalisation/delete-sport" method="post">
-        <input type="hidden" name="_method" value="DELETE">
 
-        <ul>
-            {{#journalisations}}
-            <li>
-                <input type="checkbox" name="selectedItems" value="{{sport.id}}">
-                <strong>Utilisateur :</strong> {{addedBy}}
-                <br>
-                <strong>Contenu :</strong> {{sportName}}
-                <hr>
-            </li>
-            {{/journalisations}}
-        </ul>
-
-        <button type="submit" class="btn btn-danger">Supprimer les éléments sélectionnés (Base de données)</button>
-    </form>
-
-    <a href="/ajouterunsport" class="btn btn-primary">Retour</a>
 </div>
+
+<script>
+    document.getElementById('deleteButton').addEventListener('click', function() {
+        // Soumettre le formulaire de suppression de la base de données lors du clic sur le bouton
+        document.getElementById('deleteForm').submit();
+    });
+</script>
+
 {{> include/footer}}

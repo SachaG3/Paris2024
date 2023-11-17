@@ -30,19 +30,13 @@ public class Sport extends OlympicElement{
     @Column(length = 150)
     private String addedBy;
 
-    @Column(length = 150)
-    private String log;
 
-    public void setDisciplinesLines(String lines){
-        String[] disciplinesLines=lines.split("\r\n");
-        for (String line:disciplinesLines){
-            Discipline discipline=new Discipline();
-            String[] fields=line.split(";");
-            discipline.setName(fields[0]);
-            if(fields.length>1){
-                String t=fields[1];
-                discipline.setType(t.equals("H")? DisciplineType.HOMMES:(t.equals("F")?DisciplineType.FEMMES:DisciplineType.MIXTE));
-            }
+    public void setDisciplinesLines(String lines) {
+        String[] disciplinesNames = lines.split(",");
+        for (String disciplineName : disciplinesNames) {
+            Discipline discipline = new Discipline();
+            discipline.setName(disciplineName.trim()); // trim pour supprimer les espaces autour du nom
+            discipline.setType(DisciplineType.MIXTE);
             discipline.setSport(this);
             this.disciplines.add(discipline);
         }
