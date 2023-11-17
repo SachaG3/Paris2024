@@ -56,6 +56,7 @@
     transform: scale(1.1);
 }
 
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -84,3 +85,4 @@
 .withdrawal {
     background-color: #f8d7da;
 }
+

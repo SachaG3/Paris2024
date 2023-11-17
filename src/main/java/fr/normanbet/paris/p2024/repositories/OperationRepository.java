@@ -17,7 +17,7 @@ public interface OperationRepository extends JpaRepository<Operation, Long> {
     List<Operation> findByUser(User user);
 
     List<Operation> findByUserAndType(User user, OperationType type);
-    List<Operation> findTop10ByUserOrderByDateODesc(User user);
+    List<Operation> findTop5ByUserOrderByDateODesc(User user);
     List<Operation> findByUserOrderByDateODesc(User user);
     @Query("SELECT SUM(o.amount) FROM Operation o WHERE o.user = :user AND o.type = :type AND o.dateO >= :since")
     BigDecimal findSumOfDepositsForUserSince(User user, OperationType type, LocalDateTime since);

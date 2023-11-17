@@ -1,19 +1,73 @@
 {{> /include/header }}
-<div class="container">
-<h1>Mon portefeuille</h1>
-<p>Solde actuel: {{balance}} €</p>
 
-<a href="/portefeuille/depot" class="btn btn-primary">Déposer de l'argent</a>
-<a href="/portefeuille/retrait" class="btn btn-primary">Retirer de l'argent</a>
-  <a href="/portefeuille/limite" class="btn btn-primary">limite de dépot</a>
-<h2>Dernières opérations</h2>
-<ul>
-  {{#recentOperations}}
-  <li>{{formattedDate}} - {{TranslatedType}} - {{getFormattedAmount}}</li>
-  {{/recentOperations}}
-</ul>
+<div class="container mt-3">
+    <h1 class="text-center mb-4"><span class="titre-gris">Mon</span> <span class="titre-vert">portefeuille</span></h1>
 
-<a href="/portefeuille/operation" class="btn btn-primary">Voir toutes les opérations</a>
+    <div class="row">
+        <!-- Solde et Limite de dépôt à gauche -->
+        <div class="col-md-4">
+            <div class="card mb-3 p-3">
+                <h3>Solde actuel</h3>
+                <p class="fs-4">{{balance}} €</p>
+            </div>
+            <div class="card p-3">
+                <h3>Mes limites</h3>
+                <form action="/portefeuille/limite" method="post">
+                    <input type="number" name="limit" step="1" min="1" value="1" placeholder="Entrer une limite" required class="form-control mb-3">
+                    <select name="period" class="form-select mb-3">
+                        <option value="daily">Quotidienne</option>
+                        <option value="weekly">Hebdomadaire</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Définir la limite</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Historique au milieu -->
+        <div class="col-md-4 mb-3">
+            <div class="card p-3">
+                <h3>Dernières opérations</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Montant</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#recentOperations}}
+                    <tr>
+                        <td>{{relativeFormattedDate}}</td>
+                        <td>{{TranslatedType}}</td>
+                        <td>{{getFormattedAmount}}</td>
+                    </tr>
+                    {{/recentOperations}}
+                    </tbody>
+                </table>
+                <a href="/portefeuille/operation" class="btn btn-primary mt-2">Voir toutes les opérations</a>
+            </div>
+
+        </div>
+
+        <!-- Retrait et Dépôt d'argent à droite -->
+        <div class="col-md-4">
+            <div class="card mb-3 p-3">
+                <h3>Retrait d'argent</h3>
+                <form action="/portefeuille/retrait" method="post">
+                    <input type="number" name="amount" step="1" min="10" value="10" placeholder="Montant à retirer" class="form-control mb-3">
+                    <input type="submit" value="Retirer" class="btn btn-primary">
+                </form>
+            </div>
+            <div class="card p-3">
+                <h3>Dépôt d'argent</h3>
+                <form action="/portefeuille/depot" method="post">
+                    <input type="number" name="amount" step="1" min="10" value="10" placeholder="Montant à déposer" class="form-control mb-3">
+                    <input type="submit" value="Déposer" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-{{> /include/footer}}
+{{> /include/footer }}

@@ -1,7 +1,7 @@
 {{> /include/header }}
 <div class="container">
   <a href="/portefeuille" class="btn btn-primary">Portefeuille</a>
-<h1>Toutes les opérations</h1>
+  <h1><span class="titre-gris">Toutes</span> <span class="titre-vert">les opérations</span> </h1>
   <button onclick="filterOperations('all')" class="btn btn-primary" >Toutes</button>
   <button onclick="filterOperations('deposit')" class="btn btn-primary">Dépôts</button>
   <button onclick="filterOperations('withdrawal')" class="btn btn-primary">Retraits</button>
@@ -17,7 +17,7 @@
   <tbody>
   {{#allOperations}}
   <tr class="operation-row {{#isDeposit}}deposit{{/isDeposit}}{{#isWithdrawal}}withdrawal{{/isWithdrawal}}">
-    <td title="{{formattedTime}}"><span class="tooltiptext">{{formattedDate}}</span></td>
+    <td title="{{formattedDate}}"><span class="tooltiptext">{{getRelativeFormattedDate}}</span></td>
     <td>{{TranslatedType}}</td>
     <td>{{getFormattedAmount}}</td>
   </tr>
@@ -26,18 +26,5 @@
 </table>
 </div>
 {{> /include/footer}}
-
-<script>
-  function filterOperations(type) {
-    var rows = document.querySelectorAll('tr.operation-row');
-    rows.forEach(function(row) {
-      row.style.display = '';
-      if (type === 'deposit' && !row.classList.contains('deposit')) {
-        row.style.display = 'none';
-      } else if (type === 'withdrawal' && !row.classList.contains('withdrawal')) {
-        row.style.display = 'none';
-      }
-    });
-  }
-</script>
+<script src="/js/trie.js"></script>
 

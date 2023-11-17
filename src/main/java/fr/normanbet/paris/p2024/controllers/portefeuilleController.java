@@ -25,8 +25,6 @@ import java.util.List;
 public class portefeuilleController {
 
     @Autowired
-    private OperationRepository operationRepository;
-    @Autowired
     private OperationService operationService;
     @Autowired
     private UserService userService;
@@ -34,21 +32,11 @@ public class portefeuilleController {
 
     @GetMapping("")
     public String PortefeuillePage(@AuthenticationPrincipal User user, Model model) {
-        List<Operation> recentOperations = operationRepository.findTop10ByUserOrderByDateODesc(user);
+        List<Operation> recentOperations = operationService.getOperationRepository().findTop5ByUserOrderByDateODesc(user);
         model.addAttribute("balance", user.getBalance());
         model.addAttribute("recentOperations", recentOperations);
+        model.addAttribute("limite", user.getDepositLimit());
         return "portefeuille/portefeuille";
-    }
-    @GetMapping("/depot")
-    public String showDepositView(@AuthenticationPrincipal User user,Model model) {
-        model.addAttribute("balance", user.getBalance());
-        return "portefeuille/depot";
-    }
-
-    @GetMapping("/retrait")
-    public String showWithdrawView(@AuthenticationPrincipal User user,Model model) {
-        model.addAttribute("balance", user.getBalance());
-        return "portefeuille/retrait";
     }
     @PostMapping("/depot")
     public String handleDeposit(@AuthenticationPrincipal User user,
@@ -78,7 +66,7 @@ public class portefeuilleController {
 
     @GetMapping("/operation")
     public String getAllOperationsPage(@AuthenticationPrincipal User user, Model model) {
-        List<Operation> allOperations = operationRepository.findByUserOrderByDateODesc(user);
+        List<Operation> allOperations = operationService.getOperationRepository().findByUserOrderByDateODesc(user);
         model.addAttribute("allOperations", allOperations);
         return "portefeuille/operation";
     }
@@ -96,11 +84,6 @@ public class portefeuilleController {
             redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la définition de la limite: " + e.getMessage());
         }
         return "redirect:/portefeuille";
-    }
-    @GetMapping("/limite")
-    public String limite(@AuthenticationPrincipal User user,Model model){
-        model.addAttribute("limite", user.getDepositLimit());
-        return "portefeuille/limite";
     }
 
 

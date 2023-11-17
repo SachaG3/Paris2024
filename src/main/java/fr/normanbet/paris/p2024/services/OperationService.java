@@ -1,5 +1,7 @@
 package fr.normanbet.paris.p2024.services;
 
+import fr.normanbet.paris.p2024.exceptions.DepositLimitExceededException;
+import fr.normanbet.paris.p2024.exceptions.InsufficientFundsException;
 import fr.normanbet.paris.p2024.models.Operation;
 import fr.normanbet.paris.p2024.models.User;
 import fr.normanbet.paris.p2024.models.types.OperationType;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -27,7 +30,7 @@ public class OperationService {
     @Transactional
     public void withdraw(User user, BigDecimal amount) {
         if (user.getBalance().compareTo(amount) < 0) {
-            throw new IllegalArgumentException("Fonds insuffisants pour le retrait.");
+            throw new InsufficientFundsException();
         }
         user.setBalance(user.getBalance().subtract(amount));
         userRepository.save(user);
@@ -55,8 +58,15 @@ public class OperationService {
             user.setBalance(user.getBalance().add(amount));
             userRepository.save(user);
         } else {
-            throw new IllegalArgumentException("Le montant du dépôt dépasse votre limite de dépôt.");
+            throw new DepositLimitExceededException();
         }
+    }
+    public List<Operation> findTop5OperationsByUser(User user) {
+        return operationRepository.findTop5ByUserOrderByDateODesc(user);
+    }
+
+    public List<Operation> findAllOperationsByUser(User user) {
+        return operationRepository.findByUserOrderByDateODesc(user);
     }
 }
 

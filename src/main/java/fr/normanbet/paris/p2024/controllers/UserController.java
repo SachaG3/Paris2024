@@ -167,7 +167,6 @@ public class UserController {
     public String confirmRegistration(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (verificationToken == null) {
-            System.out.println("test");
             redirectAttributes.addFlashAttribute("errorMessage", "Mauvais token.");
             return "/badUser";
         }
@@ -179,7 +178,7 @@ public class UserController {
         }
 
         if (verificationToken.getExpiryDate().before(new Date())) {
-            redirectAttributes.addFlashAttribute("errorMessage", "le token à été expiré.");
+            redirectAttributes.addFlashAttribute("errorMessage", "le token est expiré.");
             return "redirect:/badUser";
         }
         user.setActive(true);
