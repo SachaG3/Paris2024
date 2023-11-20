@@ -1,98 +1,16 @@
-<!-- /src/main/resources/templates/modifierunathlete.html -->
 {{> include/header}}
 
-<div class="container">
-    <h1>Modifier un Athlète</h1>
-
-    <!-- Tableau pour afficher la liste des athlètes -->
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Genre</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#athletes}}
-        <tr id="athleteRow{{id}}">
-            <td>{{id}}</td>
-            <td>{{lastname}}</td>
-            <td>{{firstname}}</td>
-            <td>{{genre}}</td>
-            <td>
-                <!-- Bouton pour activer la modification -->
-                <button class="btn btn-warning" onclick="enableEdit({{id}})">
-                    <i class="fas fa-pencil-alt"></i> Modifier
-                </button>
-            </td>
-        </tr>
-        {{/athletes}}
-        </tbody>
-    </table>
-
-    {{#selectedAthlete}}
-    <!-- Formulaire pour modifier les informations de l'athlète -->
-    <div id="editForm{{id}}">
-        <h2>Modifier les informations de l'athlète</h2>
-        <form action="/modifierunathlete/{{id}}" method="post">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <div class="mb-3">
-                <label for="nom" class="form-label">Nom :</label>
-                <input type="text" id="nom" name="nom" class="form-control" value="{{lastname}}" required>
-            </div>
-            <div class="mb-3">
-                <label for="prenom" class="form-label">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" class="form-control" value="{{firstname}}" required>
-            </div>
-            <div class="mb-3">
-                <label for="genre" class="form-label">Genre :</label>
-                <select id="genre" name="genre" class="form-control" required>
-                    {{#isHomme}}
-                    <option value="HOMME" selected>Homme</option>
-                    <option value="FEMME">Femme</option>
-                    {{/isHomme}}
-                    {{^isHomme}}
-                    <option value="HOMME">Homme</option>
-                    <option value="FEMME" selected>Femme</option>
-                    {{/isHomme}}
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <!-- Bouton "Retour" pour annuler la modification -->
-            <button type="button" class="btn btn-secondary" onclick="cancelEdit({{id}})">
-                Retour
-            </button>
-        </form>
-    </div>
-    {{/selectedAthlete}}
-</div>
-
-<!-- Script JavaScript pour activer la modification -->
-<script>
-    function enableEdit(athleteId) {
-        // Masquer toutes les lignes de la liste et afficher uniquement le formulaire de l'athlète sélectionné
-        document.querySelectorAll('[id^="athleteRow"]').forEach(function (row) {
-            row.style.display = 'none';
-        });
-
-        // Afficher le formulaire de l'athlète sélectionné
-        document.getElementById('editForm' + athleteId).style.display = 'block';
-    }
-
-    // Fonction pour annuler la modification et revenir à la liste
-    function cancelEdit(athleteId) {
-        // Afficher toutes les lignes
-        document.querySelectorAll('[id^="athleteRow"]').forEach(function (row) {
-            row.style.display = 'table-row';
-        });
-
-        // Masquer le formulaire de l'athlète sélectionné
-        document.getElementById('editForm' + athleteId).style.display = 'none';
-    }
-</script>
+<h1>Mise à jour de l'Athlète</h1>
+<form action="/athletes/update/{{athlete.id}}" method="post">
+    <input type="text" name="firstname" value="{{athlete.firstname}}" placeholder="Prénom">
+    <input type="text" name="lastname" value="{{athlete.lastname}}" placeholder="Nom">
+    <input type="date" name="birthdate" value="{{athlete.birthdate}}">
+    <select name="genre">
+        <option value="HOMME">Homme</option>
+        <option value="FEMME">Femme</option>
+        <!-- Ajoutez d'autres genres si nécessaire -->
+    </select>
+    <button type="submit">Mettre à jour</button>
+</form>
 
 {{> include/footer}}
