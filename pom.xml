@@ -27,6 +27,23 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version> <!-- Utilisez la dernière version disponible -->
+		</dependency>
+
+		<!-- Dépendances pour Spring Mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Dépendances pour la génération de token -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mustache</artifactId>
 		</dependency>
@@ -56,6 +73,22 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.time4j</groupId>
+			<artifactId>time4j-base</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.time4j</groupId>
+			<artifactId>time4j-sqlxml</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.time4j</groupId>
+			<artifactId>time4j-tzdata</artifactId>
+			<version>5.0-2022a</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
