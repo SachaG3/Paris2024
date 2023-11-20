@@ -1,0 +1,17 @@
+{{> /include/header}}
+<div class="container">
+<h1>Paris Sportifs</h1>
+
+<div id="liste-des-matches">
+    <h2>Liste des Matches</h2>
+    {{#events}}
+    <div class="match">
+        <h3>{{title}}</h3>
+        <p>{{date}}</p>
+        <p>{{team1}} vs {{team2}}</p>
+        <a href="/bet/{{id}}">Parier sur ce match</a>
+    </div>
+    {{/events}}
+</div>
+</div>
+{{> /include/footer}}
