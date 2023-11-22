@@ -1,0 +1,25 @@
+{{> /include/header}} <!-- Inclusion de l'en-tête -->
+
+<body>
+<h2>Liste des Résultats</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <!-- Ajoutez d'autres en-têtes de colonnes selon vos attributs Resultat -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Utilisez une boucle pour afficher les résultats -->
+    {{#resultats}}
+    <tr>
+        <td>{{id}}</td>
+        <!-- Ajoutez d'autres cellules selon vos attributs Resultat -->
+    </tr>
+    {{/resultats}}
+    </tbody>
+</table>
+</body>
+
+{{> /include/footer}} <!-- Inclusion du pied de page -->
