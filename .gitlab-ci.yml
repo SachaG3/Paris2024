@@ -1,0 +1,31 @@
+stages:
+  - build
+  - deploy
+
+maven-build:
+  image: maven:3.9.5-amazoncorretto-17-debian
+  stage: build
+  script: "mvn package -B"
+  artifacts:
+    paths:
+      - target/paris-2024.war
+
+deploy-master:
+  variables:
+    HOST: "149.202.94.223"
+    PORT: "7804"
+    USER: "gitlab-ci"
+    WAR: "paris-2024.war"
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^main$/'
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq sshpass sudo
+    - echo "Host= $HOST"
+  stage: deploy
+  script:
+    - sshpass -V
+    - export SSHPASS=$CI_USER_PASS
+    - sshpass -e scp -o StrictHostKeyChecking=no -P $PORT target/$WAR $USER@$HOST:/home/$USER
+    - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST echo $PATH
+    - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST sudo mv /home/$USER/$WAR /opt/tomcat/webapps
+    - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST sudo systemctl restart tomcat.service
