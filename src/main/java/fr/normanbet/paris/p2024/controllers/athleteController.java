@@ -17,6 +17,8 @@ public class athleteController {
 
     @Autowired
     private AthleteRepository athleteRepository;
+
+
     @GetMapping("/recherche")
     public String rechercheAthlete(@RequestParam("nomAthlete") String text , Model model) {
         text="%"+text+"%";

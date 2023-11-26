@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/ajouterunsport")
+@RequestMapping("/sports")
 public class sportController {
 
     @Autowired
@@ -28,15 +28,22 @@ public class sportController {
     private JournalisationRepository journalisationRepository;
 
     @Autowired
-    private DisciplineRepository disciplineRepository; // Assurez-vous d'avoir correctement injecté votre repository de disciplines
+    private DisciplineRepository disciplineRepository;
 
     @GetMapping
+    public String listSports(Model model) {
+        List<Sport> sports = (List<Sport>) sportRepository.findAll();
+        model.addAttribute("sports", sports);
+        return "sports";
+    }
+
+    @GetMapping("/create")
     public String showCreateSportForm(Model model) {
         model.addAttribute("sport", new Sport());
         return "ajouterunsport";
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public String createSport(@ModelAttribute Sport sport,
                               @RequestParam(name = "discipline", required = false) String discipline,
                               RedirectAttributes redirectAttributes) {
@@ -50,8 +57,8 @@ public class sportController {
                 String[] disciplineArray = discipline.split(",");
                 for (String disciplineName : disciplineArray) {
                     Discipline newDiscipline = new Discipline();
-                    newDiscipline.setName(disciplineName.trim()); // Supprimez les espaces autour de la discipline
-                    newDiscipline.setType(DisciplineType.MIXTE); // Mettez le type de discipline approprié ici
+                    newDiscipline.setName(disciplineName.trim());
+                    newDiscipline.setType(DisciplineType.MIXTE);
                     newDiscipline.setSport(sport);
                     disciplineRepository.save(newDiscipline);
                 }
@@ -68,27 +75,60 @@ public class sportController {
             redirectAttributes.addFlashAttribute("errorMessage", "Une erreur s'est produite lors de la création du sport.");
         }
 
-        return "redirect:/ajouterunsport";
+        return "redirect:/sports/create";
+    }
+
+    @GetMapping("/update/{id}")
+    public String showUpdateSportForm(@PathVariable Long id, Model model) {
+        Sport sport = sportRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Sport not found"));
+
+        model.addAttribute("sport", sport);
+        return "modifierunsport";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateSport(@PathVariable Long id,
+                              @ModelAttribute Sport updatedSport,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            Sport sport = sportRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Sport not found"));
+
+            sport.setName(updatedSport.getName());
+            sport.setDescription(updatedSport.getDescription());
+            sport.setIndividual(updatedSport.isIndividual());
+            sport.setCollective(updatedSport.isCollective());
+            sport.setSizeTeam(updatedSport.getSizeTeam());
+
+            sportRepository.save(sport);
+            redirectAttributes.addFlashAttribute("successMessage", "Sport mis à jour avec succès !");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Une erreur s'est produite lors de la mise à jour du sport.");
+        }
+
+        return "redirect:/sports/update/" + id;
     }
 
     @GetMapping("/journalisation")
     public String showJournalisation(Model model) {
-        List<Journalisation> journalisations = (List<Journalisation>) journalisationRepository.findAll();
+        List<Journalisation> journalisations = journalisationRepository.findAll();
         model.addAttribute("journalisations", journalisations);
         return "journalisation";
     }
 
     @PostMapping("/journalisation/delete")
-    public String deleteFromJournalisation(@RequestParam("selectedItems") List<Long> selectedItems, RedirectAttributes redirectAttributes) {
+    public String deleteFromJournalisation(@RequestParam("selectedItems") List<Long> selectedItems,
+                                           RedirectAttributes redirectAttributes) {
         try {
-            // Supprimez les éléments de la journalisation en fonction de leurs identifiants
             journalisationRepository.deleteAllById(selectedItems);
             redirectAttributes.addFlashAttribute("successMessage", "Éléments de la journalisation supprimés avec succès !");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Une erreur s'est produite lors de la suppression des éléments de la journalisation.");
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Une erreur s'est produite lors de la suppression des éléments de la journalisation.");
         }
 
-        return "redirect:/ajouterunsport/journalisation";
+        return "redirect:/sports/journalisation";
     }
 
     private String getCurrentUser() {

@@ -1,0 +1,39 @@
+{{> /include/header}}
+
+<div class="container">
+
+    <form method="get" id="search-form" action="/ajouterunsport/sports/recherche" class="mb-4">
+        <div class="input-group">
+            <label for="sport-search" class="visually-hidden">Rechercher un Sport</label>
+            <input type="search" id="sport-search" name="nomSport" class="form-control" placeholder="Rechercher un Sport" />
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Rechercher
+            </button>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#sports}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{description}}</td>
+            <td>
+                <a href="/ajouterunsport/sports/update/{{id}}" class="btn btn-warning">
+                    <i class="fas fa-pencil-alt"></i> Modifier
+                </a>
+            </td>
+        </tr>
+        {{/sports}}
+        </tbody>
+    </table>
+</div>
+
+{{> /include/footer}}

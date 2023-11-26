@@ -3,11 +3,37 @@
 <h1>Panneau d'administration</h1>
 
 <!-- Ajout de boutons de navigation -->
-<div>
-    <a href="/ajouterunsport" class="btn btn-primary">Ajouter un sport</a>
-    <a href="/ajouterunathlete" class="btn btn-primary">Ajouter un athlète</a>
-    <a href="/ajouterunsport/journalisation" class="btn btn-primary">Journalisation</a>
+<div class="d-flex align-items-center">
+
+    <!-- Premier élément dropdown "Sports" -->
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="Sports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sports
+        </button>
+        <div class="dropdown-menu" aria-labelledby="Sports">
+            <a class="dropdown-item" href="/sport">Liste des Sports</a>
+            <a class="dropdown-item" href="/ajouterunsport">Ajouter un Sport</a>
+        </div>
+    </div>
+
+    <!-- Deuxième élément dropdown "Athletes" -->
+    <div class="dropdown ml-2"> <!-- ml-2 ajoute une marge à gauche pour espacement -->
+        <button class="btn btn-primary dropdown-toggle" type="button" id="Athletes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Athletes
+        </button>
+        <div class="dropdown-menu" aria-labelledby="Athletes">
+            <a class="dropdown-item" href="/athletes">Modifier un athlete</a>
+            <a class="dropdown-item" href="/ajouterunathlete">Ajouter un athlete</a>
+        </div>
+    </div>
+
+    <!-- Troisième élément "Journalisation" -->
+    <a href="/ajouterunsport/journalisation" class="btn btn-primary ml-2">Journalisation</a> <!-- ml-2 ajoute une marge à gauche pour espacement -->
+
 </div>
+
+
+
 
 <h2>Liste des Utilisateurs</h2>
 <table class="table table-bordered table-striped">
@@ -33,5 +59,12 @@
     </tr>
     {{/users}}
 </table>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 {{> include/footer}}
