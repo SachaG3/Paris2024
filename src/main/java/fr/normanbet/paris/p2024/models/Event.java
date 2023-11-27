@@ -117,6 +117,9 @@ public class Event {
         }
         return null;
     }
+    public boolean isTeamEvent() {
+        return this.quotations.stream().anyMatch(QuotationTeam.class::isInstance);
+    }
 
 }
 

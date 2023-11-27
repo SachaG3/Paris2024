@@ -1,15 +1,21 @@
 {{> /include/header}}
 <div class="container">
-<h1>Paris Sportifs</h1>
+    <h1>Prochains Événements</h1>
+    <ul>
+        {{#upcomingEvents}}
+        <li>
+            <h2>{{description}}</h2>
+            <p>Date: {{prettyDateEvent}}</p>
 
-<div id="liste-des-matches">
-    <h2>Liste des Matches</h2>
-    {{#events}}
-    <div>
-        <p>{{description}}</p>
-        <p>Date de l'événement: </p>
-    </div>
-    {{/events}}
-</div>
+            {{#isTeamEvent}}
+            <p>Match entre: {{team1.name}} et {{team2.name}}</p>
+            {{/isTeamEvent}}
+
+            {{^isTeamEvent}}
+            <p>Événement individuel</p>
+            {{/isTeamEvent}}
+        </li>
+        {{/upcomingEvents}}
+    </ul>
 </div>
 {{> /include/footer}}
