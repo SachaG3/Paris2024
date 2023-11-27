@@ -80,7 +80,7 @@ public class UserController {
         Optional<User> existingUserEmail = userRepository.findByEmail(user.getEmail());
         if (existingUserLogin.isPresent()||existingUserEmail.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Ce login ou Email est déjà utilisé par un autre utilisateur");
-            return "redirect:/register";
+            return "/register";
         }
 
         Role role = roleRepository.getOne(1L);
@@ -107,7 +107,7 @@ public class UserController {
             return "/mailvalidation";
         } else {
             redirectAttributes.addFlashAttribute("error", "Échec de la création de l'utilisateur");
-            return "redirect:/register";
+            return "/register";
         }
     }
 
@@ -141,13 +141,13 @@ public class UserController {
 
         if (!userOptional.isPresent()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Aucun compte trouvé avec cet e-mail.");
-            return "redirect:/badUser";
+            return "/badUser";
         }
 
         User user = userOptional.get();
         if (user.isEnabled()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Ce compte est déjà activé.");
-            return "redirect:/login";
+            return "/login";
         }
 
         String token = UUID.randomUUID().toString();
@@ -175,19 +175,19 @@ public class UserController {
         User user = verificationToken.getUser();
         if (user.isEnabled()) {
             redirectAttributes.addFlashAttribute("message", "Compte déjà activé.");
-            return "redirect:/login";
+            return "/login";
         }
 
         if (verificationToken.getExpiryDate().before(new Date())) {
             redirectAttributes.addFlashAttribute("errorMessage", "le token à été expiré.");
-            return "redirect:/badUser";
+            return "/badUser";
         }
         user.setActive(true);
 
         userService.save(user);
 
         redirectAttributes.addFlashAttribute("message", "Compte activé.");
-        return "redirect:/login";
+        return "/login";
     }
 
     @GetMapping("/user/{login}")
