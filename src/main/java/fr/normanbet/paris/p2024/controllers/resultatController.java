@@ -1,7 +1,7 @@
 package fr.normanbet.paris.p2024.controllers;
 
-import fr.normanbet.paris.p2024.models.Resultat;
-import fr.normanbet.paris.p2024.repositories.ResultRepository;
+import fr.normanbet.paris.p2024.models.Quotation;  // Assurez-vous que c'est la classe correcte
+import fr.normanbet.paris.p2024.repositories.QuotationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +13,14 @@ import java.util.List;
 public class resultatController {
 
     @Autowired
-    private ResultRepository resultRepository;
+    private QuotationRepository quotationRepository;
 
-    @GetMapping("/resultat")
+    @GetMapping("/resultats")
     public String afficherResultats(Model model) {
-        List resultats = resultRepository.findAll();
-        model.addAttribute("resultat", resultat);
-        return "resultat"; // Cela correspond au nom de votre fichier HTML
+        List<Quotation> resultats = quotationRepository.findAll(); // Utilisez la méthode appropriée selon vos besoins
+
+        model.addAttribute("resultats", resultats);
+
+        return "resultat";  // Ceci correspond au nom de votre fichier resultat.html
     }
 }

@@ -19421,3 +19421,11 @@ The connection was not closed by the application and is garbage collected [90018
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	... 90 more
+2023-11-27 14:48:39 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "balance NUMERIC(38, 2)": "'6969696969696969696969696969696969696969696969696969696969696969696969696969696... (91)"
+Value too long for column "balance NUMERIC(38, 2)": "'6969696969696969696969696969696969696969696969696969696969696969696969696969696... (91)"; SQL statement:
+UPDATE "PUBLIC"."user" SET "id"=? ,"email"=? ,"firstname"=? ,"lastname"=? ,"login"=? ,"password"=? ,"role_id"=? ,"active"=? ,"balance"=? ,"deposit_limit"=? ,"deposit_limit_period"=?  WHERE "id"=? [22001-214]
+2023-11-27 14:48:39 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "balance NUMERIC(38, 2)": "'6969696969696969696969696969696969696969696969696969696969696969696969696969696... (91)"
+Value too long for column "balance NUMERIC(38, 2)": "'6969696969696969696969696969696969696969696969696969696969696969696969696969696... (91)"; SQL statement:
+UPDATE "PUBLIC"."user" SET "id"=? ,"email"=? ,"firstname"=? ,"lastname"=? ,"login"=? ,"password"=? ,"role_id"=? ,"active"=? ,"balance"=? ,"deposit_limit"=? ,"deposit_limit_period"=?  WHERE "id"=? [22001-214]
