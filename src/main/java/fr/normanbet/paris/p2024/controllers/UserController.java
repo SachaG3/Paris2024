@@ -61,7 +61,7 @@ public class UserController {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return "redirect:/";
+                return "/";
             }
         }
         return "login";
