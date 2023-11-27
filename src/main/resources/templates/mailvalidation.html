@@ -1,0 +1,11 @@
+{{> /include/header }}
+<div class="container">
+<h1>Confirmation de l'inscription</h1>
+<p>Un e-mail de confirmation a été envoyé à votre adresse. Veuillez cliquer sur le lien dans cet e-mail pour activer votre compte.</p>
+<form action="/resendValidationEmail" method="post">
+    <input type="hidden" name="userId" value="{{userId}}" />
+    <button type="submit" class="btn btn-primary">Renvoyer l'e-mail de validation</button>
+    <a href="/login" class="btn btn-primary">Se connecter</a>
+</form>
+</div>
+{{> /include/footer }}
