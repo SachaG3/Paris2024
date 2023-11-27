@@ -1,18 +1,20 @@
 package fr.normanbet.paris.p2024.models;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import fr.normanbet.paris.p2024.models.*;
 import fr.normanbet.paris.p2024.models.types.EventStatusType;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import net.time4j.PrettyTime;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -117,5 +119,4 @@ public class Event {
     }
 
 }
-
 

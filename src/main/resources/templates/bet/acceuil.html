@@ -5,11 +5,9 @@
 <div id="liste-des-matches">
     <h2>Liste des Matches</h2>
     {{#events}}
-    <div class="match">
-        <h3>{{title}}</h3>
-        <p>{{date}}</p>
-        <p>{{team1}} vs {{team2}}</p>
-        <a href="/bet/{{id}}">Parier sur ce match</a>
+    <div>
+        <p>{{description}}</p>
+        <p>Date de l'événement: </p>
     </div>
     {{/events}}
 </div>
