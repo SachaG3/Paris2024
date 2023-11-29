@@ -1,5 +1,6 @@
 package fr.normanbet.paris.p2024.controllers;
 
+import fr.normanbet.paris.p2024.models.Athlete;
 import fr.normanbet.paris.p2024.models.Discipline;
 import fr.normanbet.paris.p2024.models.Journalisation;
 import fr.normanbet.paris.p2024.models.Sport;
@@ -29,6 +30,17 @@ public class sportController {
 
     @Autowired
     private DisciplineRepository disciplineRepository;
+
+
+    @GetMapping("/recherche")
+    public String rechercheSports(@RequestParam("nomSport") String text , Model model) {
+        text = "%" + text + "%";
+        List<Sport> sportList = sportRepository.findByNameIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(text,text);
+        model.addAttribute("sports", sportList); // Utilisation de "sports" au lieu de "sportList"
+        return "/sports";
+    }
+
+
 
     @GetMapping
     public String listSports(Model model) {
