@@ -1,4 +1,4 @@
-{{> /include/header}} <!-- Inclusion de l'en-tête -->
+{{> /include/header}}
 
 <body>
 <div class="container mt-5">
@@ -14,11 +14,9 @@
             <th>Number</th>
             <th>Ordre</th>
             <th>Organisation</th>
-            <!-- Ajoutez d'autres en-têtes de colonnes selon vos attributs Resultat -->
         </tr>
         </thead>
         <tbody>
-        <!-- Utilisez une boucle pour afficher les résultats -->
         {{#resultats}}
         <tr>
             <td>{{isWinner}}</td>
@@ -28,7 +26,6 @@
             <td>{{number}}</td>
             <td>{{order}}</td>
             <td>{{organization}}</td>
-            <!-- Ajoutez d'autres cellules selon vos attributs Resultat -->
         </tr>
         {{/resultats}}
         </tbody>
@@ -36,4 +33,4 @@
 </div>
 </body>
 
-{{> /include/footer}} <!-- Inclusion du pied de page -->
+{{> /include/footer}}

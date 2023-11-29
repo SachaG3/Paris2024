@@ -1,6 +1,8 @@
 package fr.normanbet.paris.p2024.controllers;
 
 import fr.normanbet.paris.p2024.models.Quotation;  // Assurez-vous que c'est la classe correcte
+import fr.normanbet.paris.p2024.models.QuotationIndividual;
+import fr.normanbet.paris.p2024.models.QuotationTeam;
 import fr.normanbet.paris.p2024.repositories.QuotationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,9 @@ public class resultatController {
 
     @GetMapping("/resultats")
     public String afficherResultats(Model model) {
-        List<Quotation> resultats = quotationRepository.findAll(); // Utilisez la méthode appropriée selon vos besoins
+        List<QuotationIndividual> resultats = quotationRepository.findAll();
+        List<Quotation> resultats = quotationRepository.findAll();
+        List<QuotationTeam> resultats = quotationRepository.findAll();
 
         model.addAttribute("resultats", resultats);
 
