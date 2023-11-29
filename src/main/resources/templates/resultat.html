@@ -1,25 +1,39 @@
 {{> /include/header}} <!-- Inclusion de l'en-tête -->
 
 <body>
-<h2>Liste des Résultats</h2>
+<div class="container mt-5">
+    <h2>Liste des Résultats</h2>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <!-- Ajoutez d'autres en-têtes de colonnes selon vos attributs Resultat -->
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Utilisez une boucle pour afficher les résultats -->
-    {{#resultats}}
-    <tr>
-        <td>{{id}}</td>
-        <!-- Ajoutez d'autres cellules selon vos attributs Resultat -->
-    </tr>
-    {{/resultats}}
-    </tbody>
-</table>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Gagnant</th>
+            <th>Quotation</th>
+            <th>Score</th>
+            <th>Rang</th>
+            <th>Number</th>
+            <th>Ordre</th>
+            <th>Organisation</th>
+            <!-- Ajoutez d'autres en-têtes de colonnes selon vos attributs Resultat -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Utilisez une boucle pour afficher les résultats -->
+        {{#resultats}}
+        <tr>
+            <td>{{isWinner}}</td>
+            <td>{{quotation}}</td>
+            <td>{{score}}</td>
+            <td>{{rank}}</td>
+            <td>{{number}}</td>
+            <td>{{order}}</td>
+            <td>{{organization}}</td>
+            <!-- Ajoutez d'autres cellules selon vos attributs Resultat -->
+        </tr>
+        {{/resultats}}
+        </tbody>
+    </table>
+</div>
 </body>
 
 {{> /include/footer}} <!-- Inclusion du pied de page -->
