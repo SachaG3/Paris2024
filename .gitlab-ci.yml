@@ -27,5 +27,5 @@ deploy-master:
     - export SSHPASS=$CI_USER_PASS
     - sshpass -e scp -o StrictHostKeyChecking=no -P $PORT target/$WAR $USER@$HOST:/home/$USER
     - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST echo $PATH
-    - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST sudo mv /home/$USER/$WAR /opt/tomcat/webapps
+    - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST sudo mv /home/$USER/$WAR /opt/tomcat/webapps/paris-2024/ROOT.war
     - sshpass -e ssh -tt -o StrictHostKeyChecking=no -p $PORT $USER@$HOST sudo systemctl restart tomcat.service
