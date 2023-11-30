@@ -3,6 +3,7 @@
     <h2>Confirmation de l'inscription</h2>
     <p>Votre compte a été créé avec succès. Veuillez cliquer sur le bouton ci-dessous pour confirmer votre adresse e-mail et activer votre compte.</p>
     <form action="/registrationConfirm" method="get">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
         <input type="hidden" name="token" value="{{token}}"/>
         <button class="btn btn-primary" type="submit">Confirmer mon compte</button>
     </form>
