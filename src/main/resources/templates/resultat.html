@@ -4,32 +4,58 @@
 <div class="container mt-5">
     <h2>Liste des Résultats</h2>
 
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>Gagnant</th>
-            <th>Quotation</th>
-            <th>Score</th>
-            <th>Rang</th>
-            <th>Number</th>
-            <th>Ordre</th>
-            <th>Organisation</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#resultats}}
-        <tr>
-            <td>{{isWinner}}</td>
-            <td>{{quotation}}</td>
-            <td>{{score}}</td>
-            <td>{{rank}}</td>
-            <td>{{number}}</td>
-            <td>{{order}}</td>
-            <td>{{organization}}</td>
-        </tr>
-        {{/resultats}}
-        </tbody>
-    </table>
+    {{#events}}
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>{{#discipline}}{{#sport}}{{name}} {{/sport}}{{name}}{{/discipline}}</h2>
+            <h3>{{description}}</h3>
+        </div>
+        <div class="card-body">
+            <h4>Quotations</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Pays/athlète</th>
+                        <th>Gagnant</th>
+                        <th>Quotation</th>
+                        <th>Score</th>
+                        <th>Rang</th>
+                        <th>Number</th>
+                        <th>Ordre</th>
+                        <th>Date de l'événement</th>
+                        <th>Organisation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#quotations}}
+                    <tr>
+                        <td>
+                            {{#participation}}
+                            {{#athlete}}
+                            {{lastname}}
+                            {{/athlete}}
+                            {{/participation}}
+                            {{#country}}
+                            {{name}}
+                            {{/country}}
+                        </td>
+                        <td>{{isWinner}}</td>
+                        <td>{{quotation}}</td>
+                        <td>{{score}}</td>
+                        <td>{{rank}}</td>
+                        <td>{{number}}</td>
+                        <td>{{order}}</td>
+                        <td>{{event.dateEvent}}</td>
+                        <td>{{organization}}</td>
+                    </tr>
+                    {{/quotations}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{/events}}
 </div>
 </body>
 
