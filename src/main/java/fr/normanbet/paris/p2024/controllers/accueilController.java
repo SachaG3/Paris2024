@@ -31,7 +31,7 @@ public class accueilController {
         List<News> element1 = newsRepository.findAllByOrderByDateNDesc(PageRequest.of(0, 6));
         model.addAttribute("news", element1);
         model.addAttribute("user",user);
-        return("Accueil");
+        return("index");
     }
 
 }

@@ -46,7 +46,7 @@ public class WebSecurityConfiguration {
                                 .defaultSuccessUrl("/")
                                 .failureUrl("/login")
                                 .permitAll())
-                .logout((logout) -> logout.logoutSuccessUrl("/login"))
+                .logout((logout) -> logout.logoutUrl("/logout").logoutSuccessUrl("/login").permitAll())
                 .headers(
                         (headers)->headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 );
