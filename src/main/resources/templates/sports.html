@@ -1,10 +1,9 @@
 {{> /include/header}}
 
 <div class="container">
+    <h1>Liste des Sports</h1>
 
-    <h1>Liste des Sports</h1> <!-- Rajoutez votre titre ici -->
-
-    <form method="get" id="search-form" action="/ajouterunsport/sports/recherche" class="mb-4">
+    <form method="get" id="search-form" action="/sports/recherche" class="mb-4">
         <div class="input-group">
             <label for="sport-search" class="visually-hidden">Rechercher un Sport</label>
             <input type="search" id="sport-search" name="nomSport" class="form-control" placeholder="Rechercher un Sport" />
@@ -45,9 +44,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                {{#disciplines}}
-                                <p>{{name}}</p>
-                                {{/disciplines}}
+                                <ul class="list-group">
+                                    {{#disciplines}}
+                                    <li class="list-group-item">{{name}}</li>
+                                    {{/disciplines}}
+                                </ul>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -87,8 +88,7 @@
                                         <input type="number" id="sizeTeam" name="sizeTeam" value="{{sizeTeam}}" class="form-control" placeholder="Taille de l'équipe" required>
                                     </div>
                                     <div class="col-12">
-                                        <label for="disciplines" class="form-label">Disciplines :</label>
-                                        <textarea id="disciplines" name="disciplines" class="form-control" placeholder="Disciplines du sport">{{#disciplines}}{{name}}, {{/disciplines}}</textarea>
+                                        <!-- Laisser vide pour ne pas modifier les disciplines -->
                                     </div>
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Mettre à jour</button>
@@ -108,4 +108,3 @@
     </table>
 </div>
 
-{{> /include/footer}}

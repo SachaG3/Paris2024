@@ -9,4 +9,8 @@ public interface SportRepository extends CrudRepository<Sport, Long> {
     public Sport findFirstByNameOrDescriptionIgnoreCase(String name,String description);
 
     List<Sport> findByNameIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(String text, String text1);
+
+
+
+    List<Sport> findByNameIgnoreCaseStartingWith(String text);
 }

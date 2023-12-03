@@ -33,11 +33,10 @@ public class sportController {
 
 
     @GetMapping("/recherche")
-    public String rechercheSports(@RequestParam("nomSport") String text , Model model) {
-        text = "%" + text + "%";
-        List<Sport> sportList = sportRepository.findByNameIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(text,text);
-        model.addAttribute("sports", sportList); // Utilisation de "sports" au lieu de "sportList"
-        return "/sports";
+    public String rechercheSports(@RequestParam("nomSport") String text, Model model) {
+        List<Sport> sportList = sportRepository.findByNameIgnoreCaseStartingWith(text);
+        model.addAttribute("sports", sportList);
+        return "sports";
     }
 
 
@@ -84,7 +83,7 @@ public class sportController {
 
             redirectAttributes.addFlashAttribute("successMessage", "Sport créé avec succès !");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Une erreur s'est produite lors de la création du sport.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la création du sport.");
         }
 
         return "redirect:/sports/create";
@@ -116,7 +115,7 @@ public class sportController {
             sportRepository.save(sport);
             redirectAttributes.addFlashAttribute("successMessage", "Sport mis à jour avec succès !");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Une erreur s'est produite lors de la mise à jour du sport.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la mise à jour du sport.");
         }
 
         return "redirect:/sports/update/" + id;
@@ -129,7 +128,7 @@ public class sportController {
         return "journalisation";
     }
 
-    @PostMapping("/journalisation/delete")
+    @DeleteMapping("/journalisation/delete")
     public String deleteFromJournalisation(@RequestParam("selectedItems") List<Long> selectedItems,
                                            RedirectAttributes redirectAttributes) {
         try {
@@ -137,7 +136,7 @@ public class sportController {
             redirectAttributes.addFlashAttribute("successMessage", "Éléments de la journalisation supprimés avec succès !");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage",
-                    "Une erreur s'est produite lors de la suppression des éléments de la journalisation.");
+                    "Erreur lors de la suppression des éléments de la journalisation.");
         }
 
         return "redirect:/sports/journalisation";
