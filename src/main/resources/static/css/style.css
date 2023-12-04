@@ -55,18 +55,3 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
-.message {
-    color: white;
-    border-radius: 4px;
-    padding: 8px;
-    display: none;
-    margin-top: 10px;
-}
-.message.error {
-    background-color: #db4764;
-    display: block;
-}
-.message.valid {
-    background-color: green;
-    display: block;
-}

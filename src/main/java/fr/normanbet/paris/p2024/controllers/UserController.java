@@ -11,7 +11,10 @@ import fr.normanbet.paris.p2024.services.VerificationTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -50,7 +53,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "/user/login";
+        return "login";
     }
     @PostMapping("/login")
     public String handleLogin(@RequestParam String login, @RequestParam String password, Model model) {
@@ -58,15 +61,15 @@ public class UserController {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return "/";
+                return "redirect:/";
             }
         }
-        return "/user/login";
+        return "login";
     }
     @GetMapping("register")
     public String createUserForm(Model model) {
         model.addAttribute("user", new User());
-        return "/user/register";
+        return "register";
     }
 
     @PostMapping("register")
@@ -77,13 +80,12 @@ public class UserController {
         Optional<User> existingUserEmail = userRepository.findByEmail(user.getEmail());
         if (existingUserLogin.isPresent()||existingUserEmail.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Ce login ou Email est déjà utilisé par un autre utilisateur");
-            return "/user/register";
+            return "redirect:/register";
         }
 
         Role role = roleRepository.getById(1);
         user.setRole(role);
         user.setActive(false);
-
 
         ((DbUserService)uDetailService).encodePassword(user);
         User savedUser = userRepository.save(user);
@@ -102,18 +104,20 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "Utilisateur créé avec succès");
             model.addAttribute("userId", savedUser.getId());
             System.out.println(savedUser.getId());
-            return "/user/mailvalidation";
+            return "/mailvalidation";
         } else {
             redirectAttributes.addFlashAttribute("error", "Échec de la création de l'utilisateur");
-            return "/user/register";
+            return "redirect:/register";
         }
     }
 
     @PostMapping("/resendValidationEmail")
     public String resendValidationEmail(@RequestParam Long userId, RedirectAttributes redirectAttributes,Model model) {
+        System.out.println("passer");
         User user = userRepository.findById(userId).orElse(null);
 
         if (user != null && !user.isActive()) {
+            System.out.println("passer 2");
             String token = UUID.randomUUID().toString();
             userService.createVerificationToken(user, token);
 
@@ -129,7 +133,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "Impossible de renvoyer l'e-mail de confirmation.");
         }
         model.addAttribute("userId",user.getId());
-        return "/user/mailvalidation";
+        return "/mailvalidation";
     }
     @PostMapping("/resendBadValidationEmail")
     public String resendValidationEmail(@RequestParam String email, RedirectAttributes redirectAttributes,Model model) {
@@ -137,13 +141,13 @@ public class UserController {
 
         if (!userOptional.isPresent()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Aucun compte trouvé avec cet e-mail.");
-            return "/user/badUser";
+            return "redirect:/badUser";
         }
 
         User user = userOptional.get();
         if (user.isEnabled()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Ce compte est déjà activé.");
-            return "/user/login";
+            return "redirect:/login";
         }
 
         String token = UUID.randomUUID().toString();
@@ -157,38 +161,39 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("message", "Un e-mail de validation a été renvoyé.");
         model.addAttribute("userId",user.getId());
-        return "/user/mailvalidation";
+        return "/mailvalidation";
     }
     @GetMapping("/regitrationConfirm")
     public String confirmRegistration(@RequestParam("token") String token, Model model, RedirectAttributes redirectAttributes) {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (verificationToken == null) {
+            System.out.println("test");
             redirectAttributes.addFlashAttribute("errorMessage", "Mauvais token.");
-            return "/user/badUser";
+            return "/badUser";
         }
 
         User user = verificationToken.getUser();
         if (user.isEnabled()) {
             redirectAttributes.addFlashAttribute("message", "Compte déjà activé.");
-            return "/user/login";
+            return "redirect:/login";
         }
 
         if (verificationToken.getExpiryDate().before(new Date())) {
             redirectAttributes.addFlashAttribute("errorMessage", "le token à été expiré.");
-            return "/user/badUser";
+            return "redirect:/badUser";
         }
         user.setActive(true);
 
         userService.save(user);
 
         redirectAttributes.addFlashAttribute("message", "Compte activé.");
-        return "/user/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/user/{login}")
     public String profil(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute(user);
-        return "/user/userBoard";
+        return "userBoard";
 
     }
 
