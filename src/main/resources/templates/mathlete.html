@@ -1,0 +1,25 @@
+{{> include/header}}
+<div class="container">
+
+    <form method="get" id="search-form" action="/recherche">
+        <label for="athlete-search">Rechercher un Athlète</label>
+        <input type="search" id="athlete-search" name="nomAthlete" />
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+        </tr>
+        {{#athleteList}}
+        <tr>
+            <td>{{firstname}}</td>
+            <td>{{lastname}}</td>
+        </tr>
+        {{/athleteList}}
+    </table>
+</div>
+
+
+{{> include/footer}}

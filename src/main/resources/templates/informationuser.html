@@ -1,0 +1,25 @@
+{{> include/header}}
+
+<title>Information Utilisateur</title>
+
+<h2>Informations Utilisateur</h2>
+<table class="table table-bordered">
+  <tr>
+    <th>Prénom</th>
+    <td>{{user.firstname}}</td>
+  </tr>
+  <tr>
+    <th>Nom</th>
+    <td>{{user.lastname}}</td>
+  </tr>
+  <tr>
+    <th>Login</th>
+    <td>{{user.login}}</td>
+  </tr>
+  <tr>
+    <th>Mail</th>
+    <td>{{user.email}}</td>
+  </tr>
+</table>
+
+{{> include/footer}}
