@@ -2,6 +2,10 @@ package fr.normanbet.paris.p2024.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,22 +25,28 @@ public class User implements UserDetails {
     private Long id;
 
     @Getter
+    @NotBlank
     @Column(length = 50,unique = true)
     private String login ;
 
     @Column(length = 255)
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{9,}$")
     private String password ;
 
     @Column(length = 50)
+    @NotBlank
     private String firstname ;
 
     @Column(length = 50)
+    @NotBlank
     private String lastname;
 
     @Column(length = 255,unique = true)
+    @Email
     private String email;
 
     @ManyToOne
+    @NotEmpty
     private Role role;
 
     @OneToMany(mappedBy = "user")

@@ -1,6 +1,6 @@
 {{> /include/header }}
 <div class="container">
-    <h2>Confirmation de l'inscription</h2>
+    <h1><span class="titre-gris">Confirmation </span>><span class="titre-gris">de l'inscription</span>></h1>
     <p>Votre compte a été créé avec succès. Veuillez cliquer sur le bouton ci-dessous pour confirmer votre adresse e-mail et activer votre compte.</p>
     <form action="/registrationConfirm" method="get">
         <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
