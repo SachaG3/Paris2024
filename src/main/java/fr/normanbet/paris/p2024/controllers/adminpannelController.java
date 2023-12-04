@@ -21,11 +21,11 @@ public class adminpannelController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/adminpanel")
+    @GetMapping("/gestion/adminpanel")
     public String adminUserPanel(Model model) {
         List<User> users = (List<User>) userRepository.findAll();
         model.addAttribute("users", users);
-        return "adminpanel";
+        return "/gestion/adminpanel";
     }
 
 
@@ -56,7 +56,7 @@ public class adminpannelController {
             userRepository.save(user);
         }
 
-        return "redirect:/adminpanel";
+        return "redirect:/gestion/adminpanel";
     }
 
 
@@ -74,7 +74,7 @@ public class adminpannelController {
             }
         }
 
-        return "redirect:/adminpanel";
+        return "redirect:/gestion/adminpanel";
     }
 
 

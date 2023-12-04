@@ -11,6 +11,7 @@
                 <i class="fas fa-search"></i> Rechercher
             </button>
         </div>
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
     </form>
 
     <table class="table">
@@ -101,6 +102,7 @@
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Mettre à jour</button>
                                     </div>
+                                    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
                                 </form>
                             </div>
                             <div class="modal-footer">

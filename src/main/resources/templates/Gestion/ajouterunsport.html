@@ -20,6 +20,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Créer Sport</button>
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
     </form>
 
     {{#successMessage}}

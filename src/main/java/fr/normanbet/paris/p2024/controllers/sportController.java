@@ -1,6 +1,5 @@
 package fr.normanbet.paris.p2024.controllers;
 
-import fr.normanbet.paris.p2024.models.Athlete;
 import fr.normanbet.paris.p2024.models.Discipline;
 import fr.normanbet.paris.p2024.models.Journalisation;
 import fr.normanbet.paris.p2024.models.Sport;
@@ -36,7 +35,7 @@ public class sportController {
     public String rechercheSports(@RequestParam("nomSport") String text, Model model) {
         List<Sport> sportList = sportRepository.findByNameIgnoreCaseStartingWith(text);
         model.addAttribute("sports", sportList);
-        return "sports";
+        return "/gestion/sports";
     }
 
 
@@ -45,16 +44,16 @@ public class sportController {
     public String listSports(Model model) {
         List<Sport> sports = (List<Sport>) sportRepository.findAll();
         model.addAttribute("sports", sports);
-        return "sports";
+        return "/gestion/sports";
     }
 
-    @GetMapping("/ajouterunsport")
+    @GetMapping("/gestion/ajouterunsport")
     public String showCreateSportForm(Model model) {
         model.addAttribute("sport", new Sport());
-        return "ajouterunsport";
+        return "/gestion/ajouterunsport";
     }
 
-    @PostMapping("/ajouterunsport")
+    @PostMapping("/gestion/ajouterunsport")
     public String createSport(@ModelAttribute Sport sport,
                               @RequestParam(name = "discipline", required = false) String discipline,
                               RedirectAttributes redirectAttributes) {
@@ -80,7 +79,7 @@ public class sportController {
             redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la création du sport.");
         }
 
-        return "redirect:/sports";
+        return "redirect:/gestion/sports";
     }
 
 
@@ -90,7 +89,7 @@ public class sportController {
                 .orElseThrow(() -> new RuntimeException("Sport not found"));
 
         model.addAttribute("sport", sport);
-        return "sport";
+        return "/gestion/sport";
     }
 
     @PostMapping("/update/{id}")
@@ -110,7 +109,7 @@ public class sportController {
         sport.setSizeTeam(sizeTeam);
 
         sportRepository.save(sport);
-        return "redirect:/sports";
+        return "redirect:/gestion/sports";
     }
 
 
@@ -132,7 +131,7 @@ public class sportController {
                     "Erreur lors de la suppression des éléments de la journalisation.");
         }
 
-        return "redirect:/sports/journalisation";
+        return "redirect:/gestion/sports/journalisation";
     }
 
     private String getCurrentUser() {
