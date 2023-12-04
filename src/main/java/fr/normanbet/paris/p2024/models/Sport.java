@@ -34,6 +34,8 @@ public class Sport extends OlympicElement {
     private boolean collective;
 
     private int sizeTeam;
+    @Column(length = 150)
+    private String addedBy;
 
     @OneToMany(mappedBy = "sport", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -60,4 +62,3 @@ public class Sport extends OlympicElement {
     }
 
 }
-
