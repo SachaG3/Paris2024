@@ -19,6 +19,7 @@
             <th>Nom</th>
             <th>Description</th>
             <th>Individuel</th>
+            <th>Collective</th>
             <th>Taille de l'équipe</th>
             <th>Disciplines</th>
             <th>Action</th>
@@ -30,6 +31,7 @@
             <td>{{name}}</td>
             <td>{{description}}</td>
             <td>{{individual}}</td>
+            <td>{{collective}}</td>
             <td>{{sizeTeam}}</td>
             <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#disciplinesModal{{id}}">
@@ -70,7 +72,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/ajouterunsport/sports/update/{{id}}" method="post" class="row g-3">
+                                <form action="/sports/update/{{id}}" method="post" class="row g-3">
                                     <div class="col-md-6">
                                         <label for="name" class="form-label">Nom :</label>
                                         <input type="text" id="name" name="name" value="{{name}}" class="form-control" placeholder="Nom du sport" required>
@@ -82,6 +84,12 @@
                                     <div class="col-md-6">
                                         <label for="individual" class="form-check-label">Individuel :</label>
                                         <input type="checkbox" id="individual" name="individual" class="form-check-input" {{#individual}}checked{{/individual}}>
+                                        <input type="hidden" name="individual" value="false">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="collective" class="form-check-label">Collective :</label>
+                                        <input type="checkbox" id="collective" name="collective" class="form-check-input" {{#collective}}checked{{/collective}}>
+                                        <input type="hidden" name="collective" value="false">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="sizeTeam" class="form-label">Taille de l'équipe :</label>
@@ -107,4 +115,3 @@
         </tbody>
     </table>
 </div>
-

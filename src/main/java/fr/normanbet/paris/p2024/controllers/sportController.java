@@ -48,13 +48,13 @@ public class sportController {
         return "sports";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/ajouterunsport")
     public String showCreateSportForm(Model model) {
         model.addAttribute("sport", new Sport());
         return "ajouterunsport";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/ajouterunsport")
     public String createSport(@ModelAttribute Sport sport,
                               @RequestParam(name = "discipline", required = false) String discipline,
                               RedirectAttributes redirectAttributes) {
@@ -75,19 +75,14 @@ public class sportController {
                 }
             }
 
-            // Ajouter la journalisation
-            Journalisation journalisation = new Journalisation();
-            journalisation.setSport(sport);
-            journalisation.setAddedBy(currentUser);
-            journalisationRepository.save(journalisation);
-
             redirectAttributes.addFlashAttribute("successMessage", "Sport créé avec succès !");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la création du sport.");
         }
 
-        return "redirect:/sports/create";
+        return "redirect:/sports";
     }
+
 
     @GetMapping("/update/{id}")
     public String showUpdateSportForm(@PathVariable Long id, Model model) {
@@ -95,31 +90,29 @@ public class sportController {
                 .orElseThrow(() -> new RuntimeException("Sport not found"));
 
         model.addAttribute("sport", sport);
-        return "modifierunsport";
+        return "sport";
     }
 
     @PostMapping("/update/{id}")
     public String updateSport(@PathVariable Long id,
-                              @ModelAttribute Sport updatedSport,
-                              RedirectAttributes redirectAttributes) {
-        try {
-            Sport sport = sportRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Sport not found"));
+                              @RequestParam String name,
+                              @RequestParam String description,
+                              @RequestParam boolean individual,
+                              @RequestParam boolean collective,
+                              @RequestParam int sizeTeam) {
+        Sport sport = sportRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Sport not found"));
 
-            sport.setName(updatedSport.getName());
-            sport.setDescription(updatedSport.getDescription());
-            sport.setIndividual(updatedSport.isIndividual());
-            sport.setCollective(updatedSport.isCollective());
-            sport.setSizeTeam(updatedSport.getSizeTeam());
+        sport.setName(name);
+        sport.setDescription(description);
+        sport.setIndividual(individual);
+        sport.setCollective(collective);
+        sport.setSizeTeam(sizeTeam);
 
-            sportRepository.save(sport);
-            redirectAttributes.addFlashAttribute("successMessage", "Sport mis à jour avec succès !");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la mise à jour du sport.");
-        }
-
-        return "redirect:/sports/update/" + id;
+        sportRepository.save(sport);
+        return "redirect:/sports";
     }
+
 
     @GetMapping("/journalisation")
     public String showJournalisation(Model model) {
