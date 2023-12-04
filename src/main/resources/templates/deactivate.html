@@ -1,0 +1,12 @@
+{{> include/header}}
+
+<h2>Désactiver le Compte</h2>
+<p>Veuillez entrer votre mot de passe pour désactiver le compte.</p>
+<form method="post" action="/deactivate/{{user.id}}">
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" required />
+
+    <input type="submit" value="Désactiver le Compte" />
+</form>
+
+{{> include/footer}}

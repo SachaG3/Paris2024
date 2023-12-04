@@ -1,0 +1,23 @@
+<!-- activate.html -->
+{{> include/header}}
+
+<h1>Activation de Compte</h1>
+
+{{#if message}}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{{/if}}
+
+{{#if error}}
+<div class="alert alert-danger" role="alert">
+    {{error}}
+</div>
+{{/if}}
+
+<p>Le compte a été activé avec succès.</p>
+<p>Vous pouvez maintenant vous connecter avec votre compte.</p>
+
+<a href="/static" class="btn btn-primary">Retour à l'accueil</a>
+
+{{> include/footer}}

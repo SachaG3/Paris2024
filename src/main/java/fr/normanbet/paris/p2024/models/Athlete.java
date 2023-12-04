@@ -31,4 +31,7 @@ public class Athlete extends OlympicElement{
     public String getName() {
         return firstname+" "+lastname;
     }
+
+    public void setAddedBy(String currentUser) {
+    }
 }
