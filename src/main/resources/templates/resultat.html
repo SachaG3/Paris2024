@@ -4,6 +4,14 @@
 <div class="container mt-5">
     <h2>Liste des Résultats</h2>
 
+    <!-- Barre de recherche -->
+    <div class="input-group mb-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par pays/athlète">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" id="searchButton">Rechercher</button>
+        </div>
+    </div>
+
     {{#events}}
     <div class="card mt-4">
         <div class="card-header">
@@ -46,7 +54,6 @@
                         <td>{{rank}}</td>
                         <td>{{number}}</td>
                         <td>{{order}}</td>
-                        <td>{{event.dateEvent}}</td>
                         <td>{{organization}}</td>
                     </tr>
                     {{/quotations}}
@@ -57,6 +64,38 @@
     </div>
     {{/events}}
 </div>
-</body>
 
 {{> /include/footer}}
+
+<!-- Script pour la barre de recherche -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var searchInput = document.getElementById("searchInput");
+        var searchButton = document.getElementById("searchButton");
+
+        searchButton.addEventListener("click", function () {
+            performSearch();
+        });
+
+        searchInput.addEventListener("input", function () {
+            performSearch();
+        });
+
+        function performSearch() {
+            var searchTerm = searchInput.value.toLowerCase();
+            var eventCards = document.querySelectorAll(".card");
+
+            eventCards.forEach(function (eventCard) {
+                var countryAthleteElement = eventCard.querySelector("td:first-child");
+                var countryAthleteText = countryAthleteElement.innerText.toLowerCase();
+
+                if (countryAthleteText.includes(searchTerm)) {
+                    eventCard.style.display = "block";
+                } else {
+                    eventCard.style.display = "none";
+                }
+            });
+        }
+    });
+</script>
+</body>

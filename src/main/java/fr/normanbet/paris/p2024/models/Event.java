@@ -1,12 +1,13 @@
 package fr.normanbet.paris.p2024.models;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.normanbet.paris.p2024.models.*;
 import fr.normanbet.paris.p2024.models.types.EventStatusType;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -67,15 +68,15 @@ public class Event {
     }
 
     public String getPrettyDateEvent() {
-        ZonedDateTime result = dateEvent.atZone(ZoneId.systemDefault());
-        return PrettyTime.of(Locale.FRANCE).printRelative(result);
+        return PrettyTime.of(Locale.FRANCE).printRelative(ZonedDateTime.from(dateEvent));
     }
 
     @JsonIgnore
     public Set<Event> getPreviousEvents() {
         Set<Event> events = new LinkedHashSet<>();
         for (Quotation q : quotations) {
-            events.addAll(q.getPreviousEvents());
+            events.addAll(
+                    (Collection<? extends Event>) q.getPreviousEvents());
         }
         return events;
     }
@@ -106,16 +107,20 @@ public class Event {
         }
     }
 
-    //Concatenate the scores of all athletes in the quotations of the event
+    // Concatenate the scores of all athletes in the quotations of the event
     public String getScores() {
         if (!this.status.equals(EventStatusType.NOT_STARTED)) {
             return this.quotations.stream()
                     .map(q -> q.getScore() + "").collect(Collectors.joining(" - "));
-
         }
         return null;
     }
 
+    public String getFormattedDate() {
+        if (dateEvent != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return dateEvent.format(formatter);
+        }
+        return "";
+    }
 }
-
-
