@@ -2,10 +2,7 @@ package fr.normanbet.paris.p2024.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +43,7 @@ public class User implements UserDetails {
     private String email;
 
     @ManyToOne
-    @NotEmpty
+    @NotNull
     private Role role;
 
     @OneToMany(mappedBy = "user")
