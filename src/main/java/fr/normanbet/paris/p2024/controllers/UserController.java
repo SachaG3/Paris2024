@@ -83,7 +83,7 @@ public class UserController {
             return "redirect:/register";
         }
 
-        Role role = roleRepository.getOne(1L);
+        Role role = roleRepository.getById(1);
         user.setRole(role);
         user.setActive(false);
 
