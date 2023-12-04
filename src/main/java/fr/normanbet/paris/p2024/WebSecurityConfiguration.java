@@ -38,7 +38,8 @@ public class WebSecurityConfiguration {
                                         AntPathRequestMatcher.antMatcher("/css/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/images/**"),
-                                        AntPathRequestMatcher.antMatcher("/js/**")
+                                        AntPathRequestMatcher.antMatcher("/js/**"),
+                                        AntPathRequestMatcher.antMatcher("/portefeuille/**")
                                         )
                                 .permitAll();
 
