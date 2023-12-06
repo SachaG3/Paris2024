@@ -38,8 +38,7 @@ public class WebSecurityConfiguration {
                                         AntPathRequestMatcher.antMatcher("/css/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/images/**"),
-                                        AntPathRequestMatcher.antMatcher("/js/**"),
-                                        AntPathRequestMatcher.antMatcher("/portefeuille/**")
+                                        AntPathRequestMatcher.antMatcher("/js/**")
                                         )
                                 .permitAll();
 
@@ -48,7 +47,8 @@ public class WebSecurityConfiguration {
                                     )
                                     .hasRole("ADMIN");
                             req.requestMatchers(
-                                            AntPathRequestMatcher.antMatcher("/user/**")
+                                            AntPathRequestMatcher.antMatcher("/user/**"),
+                                            AntPathRequestMatcher.antMatcher("/portefeuille/**")
                                     )
                                     .hasRole("USER")
                                         .anyRequest()

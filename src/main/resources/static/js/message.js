@@ -34,16 +34,16 @@ form.addEventListener("submit", function (event) {
     }
 });
 document.getElementById('togglePassword').addEventListener('click', function (e) {
+    // Identifier l'élément cliqué
+    const target = e.target.tagName === 'SPAN' ? e.target.parentElement : e.target;
+
     // Basculer l'icône de l'œil
-    e.target.classList.toggle('fa-eye');
-    e.target.classList.toggle('fa-eye-slash');
+    const icon = target.querySelector('span');
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
 
     // Basculer le type de champ de mot de passe
     const password = document.getElementById('password');
-    if (password.type === 'password') {
-        password.type = 'text';
-    } else {
-        password.type = 'password';
-    }
+    password.type = (password.type === 'password') ? 'text' : 'password';
 });
 
