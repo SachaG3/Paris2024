@@ -17,8 +17,8 @@
     <!-- Boutons de tri -->
     <div class="mb-4">
         <strong>Trier par date :</strong>
-        <a href="/actualite?sort=asc" class="btn btn-sm btn-outline-primary{{#sortAsc}} active{{/sortAsc}}">Plus ancien d'abord</a>
-        <a href="/actualite?sort=desc" class="btn btn-sm btn-outline-primary{{#sortDesc}} active{{/sortDesc}}">Plus récent d'abord</a>
+        <a href="/actualite?sort=asc" class="btn btn-sm btn-outline-primary{{#sortAsc}} active{{/sortAsc}}">Plus ancien</a>
+        <a href="/actualite?sort=desc" class="btn btn-sm btn-outline-primary{{#sortDesc}} active{{/sortDesc}}">Plus récent</a>
     </div>
 
     <div class="row">
@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{title}}</h5>
                     <p class="card-text text-truncate">{{content}}</p>
-                    <p class="card-text"><small class="text-muted">{{dateN}}</small></p>
+                    <p class="card-text"><small class="text-muted">{{getRelativeFormattedDate}}</small></p>
                     <a href="/actualite/{{title}}/{{id}}" class="btn btn-primary">Lire la suite</a>
                 </div>
             </div>
