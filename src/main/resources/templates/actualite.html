@@ -1,21 +1,41 @@
 {{> include/header}}
+
+
 <div class="container">
-    <h1 class="titre-gris">Norman<span class="titre-vert">BET</span></h1>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Titre</th>
-        <th>Contenu</th>
-        <th>Date</th>
-    </tr>
-    {{#newsList}}
-    <tr>
-        <td>{{id}}</td>
-        <td>{{title}}</td>
-        <td>{{content}}</td>
-        <td>{{dateN}}</td>
-    </tr>
-    {{/newsList}}
-</table>
+    <h1 class="titre-gris mb-4">Norman<span class="titre-vert">BET</span></h1>
+
+    <!-- Barre de recherche -->
+    <form action="/actualite" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Rechercher..." name="search" value="{{#search}}{{search}}{{/search}}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Boutons de tri -->
+    <div class="mb-4">
+        <strong>Trier par date :</strong>
+        <a href="/actualite?sort=asc" class="btn btn-sm btn-outline-primary{{#sortAsc}} active{{/sortAsc}}">Plus ancien d'abord</a>
+        <a href="/actualite?sort=desc" class="btn btn-sm btn-outline-primary{{#sortDesc}} active{{/sortDesc}}">Plus récent d'abord</a>
+    </div>
+
+    <div class="row">
+        {{#newsList}}
+        <div class="col-md-4 mb-4">
+            <div class="card d-flex flex-fill">
+                <img src="{{mainImg}}" class="card-img-top" alt="Image de l'article">
+                <div class="card-body">
+                    <h5 class="card-title">{{title}}</h5>
+                    <p class="card-text text-truncate">{{content}}</p>
+                    <p class="card-text"><small class="text-muted">{{dateN}}</small></p>
+                    <a href="/actualite/{{title}}/{{id}}" class="btn btn-primary">Lire la suite</a>
+                </div>
+            </div>
+        </div>
+        {{/newsList}}
+    </div>
 </div>
+
 {{> include/footer}}

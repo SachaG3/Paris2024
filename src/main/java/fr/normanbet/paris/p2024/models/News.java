@@ -40,4 +40,6 @@ public class News {
 
     @ManyToMany(mappedBy = "news")
     private List<OlympicElement> links=new ArrayList<>();
+
+
 }
