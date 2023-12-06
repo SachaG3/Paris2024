@@ -1,0 +1,61 @@
+{{> include/header}}
+<div class="container">
+    <h1>Ajouter un Athlète</h1>
+
+    <form action="/ajouterunathlete" method="post">
+        <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom <span class="text-danger">(obligatoire)</span>:</label>
+            <input type="text" id="firstname" name="firstname" class="form-control" style="width: 300px;" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Nom de famille <span class="text-danger">(obligatoire)</span>:</label>
+            <input type="text" id="lastname" name="lastname" class="form-control" style="width: 300px;" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="genre" class="form-label">Genre <span class="text-danger">(obligatoire)</span>:</label>
+            <select id="genre" name="genre" class="form-select" style="width: 300px;" required>
+                <option value="0">Femme</option>
+                <option value="1">Homme</option>
+            </select>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn btn-primary">Ajouter Athlète</button>
+    </form>
+
+    {{#successMessage}}
+    <div id="successMessage" class="alert alert-success" role="alert">
+        {{successMessage}}
+    </div>
+    {{/successMessage}}
+
+    {{#errorMessage}}
+    <div id="errorMessage" class="alert alert-danger" role="alert">
+        {{errorMessage}}
+    </div>
+    {{/errorMessage}}
+
+    <script>
+        function hideMessages() {
+            setTimeout(function() {
+                var successMessage = document.getElementById('successMessage');
+                var errorMessage = document.getElementById('errorMessage');
+
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            }, 2000);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            hideMessages();
+        });
+    </script>
+
+</div>
+{{> include/footer}}

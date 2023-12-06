@@ -12,7 +12,7 @@
 	<artifactId>paris2024</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>paris2024</name>
+	<name>${build.finalName}</name>
 	<description>paris2024</description>
 	<properties>
 		<java.version>17</java.version>
@@ -70,6 +70,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
@@ -94,10 +99,22 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
 
 	<build>
+		<finalName>paris-2024</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<!-- Add the following exclusions here. -->
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -112,5 +129,30 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activeProfile>dev</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<activeProfile>prod</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<activeProfile>test</activeProfile>
+			</properties>
+		</profile>
+	</profiles>
+
+
 
 </project>

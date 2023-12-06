@@ -9,10 +9,14 @@
 <div class="container">
 {{#user}}
 <span class="badge bg-success">{{username}}</span>
-<a href="/logout" class="btn btn-danger">Se déconnecter</a>
+    <a href="#" onclick="document.getElementById('logout-form').submit()" class="btn btn-danger">Se déconnecter</a>
     <a class="btn" href="/user/{{username}}">Profil</a>
     <a href="/portefeuille" class="btn btn-primary">{{balance}} €</a>
-{{/user}}
+    <form id="logout-form" action="/logout" method="post">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
+    </form>
+
+    {{/user}}
 {{^user}}
 <span class="badge bg-secondary">Non connecté </span>
 <a href="/login" class="btn btn-primary">Se connecter</a>

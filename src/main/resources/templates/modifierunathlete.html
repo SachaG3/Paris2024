@@ -1,0 +1,16 @@
+{{> include/header}}
+
+<h1>Mise à jour de l'Athlète</h1>
+<form action="/athletes/update/{{athlete.id}}" method="post">
+    <input type="text" name="firstname" value="{{athlete.firstname}}" placeholder="Prénom">
+    <input type="text" name="lastname" value="{{athlete.lastname}}" placeholder="Nom">
+    <input type="date" name="birthdate" value="{{athlete.birthdate}}">
+    <select name="genre">
+        <option value="HOMME">Homme</option>
+        <option value="FEMME">Femme</option>
+        <!-- Ajoutez d'autres genres si nécessaire -->
+    </select>
+    <button type="submit">Mettre à jour</button>
+</form>
+
+{{> include/footer}}
