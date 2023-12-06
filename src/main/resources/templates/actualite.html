@@ -1,6 +1,5 @@
 {{> include/header}}
 
-
 <div class="container">
     <h1 class="titre-gris mb-4">Norman<span class="titre-vert">BET</span></h1>
 
@@ -29,7 +28,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{title}}</h5>
                     <p class="card-text text-truncate">{{content}}</p>
-                    <p class="card-text"><small class="text-muted">{{getRelativeFormattedDate}}</small></p>
+                    <p class="card-text"><small class="text-muted">{{getRelativeFormattedDate}} - {{author.firstname}} {{author.lastname}}</small></p>
                     <a href="/actualite/{{title}}/{{id}}" class="btn btn-primary">Lire la suite</a>
                 </div>
             </div>
