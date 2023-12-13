@@ -4,6 +4,8 @@ import fr.normanbet.paris.p2024.exceptions.InvalidUserException;
 import fr.normanbet.paris.p2024.exceptions.UserNotFoundException;
 import fr.normanbet.paris.p2024.models.User;
 import fr.normanbet.paris.p2024.models.VerificationToken;
+import fr.normanbet.paris.p2024.models.types.OperationType;
+import fr.normanbet.paris.p2024.repositories.OperationRepository;
 import fr.normanbet.paris.p2024.repositories.UserRepository;
 import fr.normanbet.paris.p2024.repositories.VerificationTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -27,6 +33,8 @@ public class UserService {
     private VerificationTokenRepository tokenRepository;
 
     private final UserRepository userRepository;
+    @Autowired
+    private OperationRepository operationRepository;
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -96,5 +104,35 @@ public class UserService {
             return optionalUser.get().isEnabled();
         }
         return false;
+    }
+    public void setDepositLimit(User user, BigDecimal limit, String period) {
+        user.setDepositLimit(limit);
+        user.setDepositLimitPeriod(period);
+        userRepository.save(user);
+    }
+
+    public boolean checkDepositLimit(User user, BigDecimal depositAmount) {
+        BigDecimal limit = user.getDepositLimit();
+        String period = user.getDepositLimitPeriod();
+        LocalDateTime since;
+
+        // Déterminez la période de temps pour la limite
+        if ("daily".equals(period)) {
+            since = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        } else if ("weekly".equals(period)) {
+            since = LocalDateTime.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        } else {
+            // Si la période n'est pas définie ou incorrecte, vous pouvez lancer une exception ou gérer comme vous le souhaitez
+            throw new IllegalArgumentException("Période de limite de dépôt incorrecte.");
+        }
+
+        // Calculez le total des dépôts depuis le début de la période
+        BigDecimal totalDeposits = operationRepository.findSumOfDepositsForUserSince(user, OperationType.DEPOSIT, since);
+
+        // Si totalDeposits est null, aucun dépôt n'a été effectué depuis 'since'
+        if (totalDeposits == null) totalDeposits = BigDecimal.ZERO;
+
+        // Vérifiez si le dépôt actuel dépasse la limite
+        return totalDeposits.add(depositAmount).compareTo(limit) <= 0;
     }
 }

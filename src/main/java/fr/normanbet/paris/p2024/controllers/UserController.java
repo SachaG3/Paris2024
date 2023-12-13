@@ -80,7 +80,7 @@ public class UserController {
             return "/user/register";
         }
 
-        Role role = roleRepository.getOne(1L);
+        Role role = roleRepository.getById(1);
         user.setRole(role);
         user.setActive(false);
 
@@ -195,3 +195,4 @@ public class UserController {
 
 
 }
+

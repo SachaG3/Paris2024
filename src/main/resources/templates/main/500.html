@@ -1,0 +1,27 @@
+{{> /include/header }}
+<div class="container text-center">
+    <h1><span class="titre-gris">Erreur </span> <span class="titre-vert">500</span></h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">
+                    <i class="fa-solid fa-exclamation-triangle"></i>
+                    Erreur du serveur
+                </h4>
+                <hr/>
+                <p>
+                    {{#message}}{{.}}{{/message}}
+                    {{^message}}Nous sommes désolés du désagrément.<br>Toute l'équipe est sur le pont pour identifier l'origine du problème et le résoudre !{{/message}}
+                </p>
+                <hr/>
+                <p class="mb-0">
+                    <a href="/" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-home"></i>
+                        Retour à l'accueil
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{{> include/footer}}
