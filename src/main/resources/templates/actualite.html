@@ -11,6 +11,7 @@
                 <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
             </div>
         </div>
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
     </form>
 
     <!-- Boutons de tri -->
