@@ -55,3 +55,7 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
+.badge-secondary, .badge-primary {
+    color: #000; /* Définit la couleur du texte en noir */
+    /* Vous pouvez également ajuster la couleur de fond si nécessaire */
+}

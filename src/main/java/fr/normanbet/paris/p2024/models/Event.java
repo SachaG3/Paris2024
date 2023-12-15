@@ -1,7 +1,14 @@
 package fr.normanbet.paris.p2024.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.normanbet.paris.p2024.models.*;
 import fr.normanbet.paris.p2024.models.types.EventStatusType;
 import jakarta.persistence.*;
@@ -9,12 +16,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import net.time4j.PrettyTime;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -69,15 +70,15 @@ public class Event {
     }
 
     public String getPrettyDateEvent() {
-        ZonedDateTime result = dateEvent.atZone(ZoneId.systemDefault());
-        return PrettyTime.of(Locale.FRANCE).printRelative(result);
+        return PrettyTime.of(Locale.FRANCE).printRelative(ZonedDateTime.from(dateEvent));
     }
 
     @JsonIgnore
     public Set<Event> getPreviousEvents() {
         Set<Event> events = new LinkedHashSet<>();
         for (Quotation q : quotations) {
-            events.addAll(q.getPreviousEvents());
+            events.addAll(
+                    (Collection<? extends Event>) q.getPreviousEvents());
         }
         return events;
     }
@@ -108,18 +109,48 @@ public class Event {
         }
     }
 
-    //Concatenate the scores of all athletes in the quotations of the event
+    // Concatenate the scores of all athletes in the quotations of the event
     public String getScores() {
         if (!this.status.equals(EventStatusType.NOT_STARTED)) {
             return this.quotations.stream()
                     .map(q -> q.getScore() + "").collect(Collectors.joining(" - "));
-
         }
         return null;
     }
-    public boolean isTeamEvent() {
-        return this.quotations.stream().anyMatch(QuotationTeam.class::isInstance);
+
+    public String getFormattedDate() {
+        if (dateEvent != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return dateEvent.format(formatter);
+        }
+        return "";
+    }
+    public String getRelativeFormattedDate() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = now.toLocalDate();
+        LocalDate yesterday = today.minusDays(1);
+        LocalDate tomorrow = today.plusDays(1);
+        LocalDate dateOfEvent = dateEvent.toLocalDate();
+
+        if (dateOfEvent.equals(today)) {
+            // Si l'événement est aujourd'hui, affichez l'heure
+            return dateEvent.format(DateTimeFormatter.ofPattern("HH:mm"));
+        } else if (dateOfEvent.equals(yesterday)) {
+            // Si l'événement était hier
+            return "Hier";
+        } else if (dateOfEvent.equals(tomorrow)) {
+            // Si l'événement est demain
+            return "Demain";
+        } else if (dateEvent.isAfter(now) && dateEvent.isBefore(now.plusWeeks(1))) {
+            // Si l'événement est plus tard cette semaine
+            return "Cette semaine";
+        } else if (dateEvent.isAfter(now.plusWeeks(1)) && dateEvent.isBefore(now.plusWeeks(2))) {
+            // Si l'événement est la semaine prochaine
+            return "La semaine prochaine";
+        } else {
+            // Pour les dates futures plus éloignées
+            return dateEvent.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.FRANCE));
+        }
     }
 
 }
-
