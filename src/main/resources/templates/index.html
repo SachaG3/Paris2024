@@ -9,9 +9,14 @@
 <div class="container">
 {{#user}}
 <span class="badge bg-success">{{username}}</span>
-<a href="/logout" class="btn btn-danger">Se déconnecter</a>
+    <a href="#" onclick="document.getElementById('logout-form').submit()" class="btn btn-danger">Se déconnecter</a>
     <a class="btn" href="/user/{{username}}">Profil</a>
-{{/user}}
+    <a href="/portefeuille" class="btn btn-primary">{{balance}} €</a>
+    <form id="logout-form" action="/logout" method="post">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
+    </form>
+
+    {{/user}}
 {{^user}}
 <span class="badge bg-secondary">Non connecté </span>
 <a href="/login" class="btn btn-primary">Se connecter</a>
@@ -49,7 +54,7 @@
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                             <!--title-->
-                                            <a href="/article/{{title}}{{id}}">
+                                            <a href="/article/{{title}}/{{id}}">
                                                 <h2 class="h3 post-title text-white my-1">{{title}}</h2>
                                             </a>
                                             <!-- meta title -->
@@ -88,7 +93,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -110,7 +115,7 @@
 
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="">
@@ -119,7 +124,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -147,7 +152,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -164,7 +169,7 @@
                                 <div class="position-relative">
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="blog website templates bootstrap">
@@ -173,7 +178,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>

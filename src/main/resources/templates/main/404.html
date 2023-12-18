@@ -1,0 +1,27 @@
+{{> /include/header }}
+<div class="container text-center">
+    <h1><span class="titre-gris">Erreur </span>  <span class="titre-vert">404</span></h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">
+                    <i class="fa-solid fa-exclamation-triangle"></i>
+                    Elément introuvable
+                </h4>
+                <hr/>
+                <p>
+                    {{#message}}{{.}}{{/message}}
+                    {{^message}}La page que vous cherchez n'existe pas.{{/message}}
+                </p>
+                <hr/>
+                <p class="mb-0">
+                    <a href="/" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-home"></i>
+                        Retour à l'accueil
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{{> include/footer}}

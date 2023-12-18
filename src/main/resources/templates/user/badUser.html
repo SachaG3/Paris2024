@@ -4,6 +4,7 @@
   <p>Veuillez saisir votre adresse e-mail pour renvoyer l'e-mail de validation.</p>
 
   <form action="/resendBadValidationEmail" method="post">
+    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
     <input type="email" name="email" placeholder="Votre adresse e-mail" required>
     <button type="submit" class="btn btn-primary">Renvoyer l'e-mail</button>
   </form>

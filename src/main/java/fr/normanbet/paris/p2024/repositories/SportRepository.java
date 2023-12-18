@@ -6,5 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface SportRepository extends CrudRepository<Sport, Long> {
-    List<Sport> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String name, String description);
+
+    List<Sport> findByNameIgnoreCaseStartingWith(String text);
 }

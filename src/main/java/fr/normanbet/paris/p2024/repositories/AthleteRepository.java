@@ -6,5 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface AthleteRepository extends CrudRepository<Athlete, Long> {
-    List<Athlete> findByFirstnameIgnoreCaseContainingOrLastnameIgnoreCaseContaining(String firstname, String lastname);
+
+    List<Athlete> findByFirstnameLikeOrLastnameLikeAllIgnoreCase(String firstname, String lastname);
+
 }
