@@ -25,7 +25,7 @@ public class adminpannelController {
     public String adminUserPanel(Model model) {
         List<User> users = (List<User>) userRepository.findAll();
         model.addAttribute("users", users);
-        return "/gestion/adminpanel";
+        return "/Gestion/adminpanel";
     }
 
 
