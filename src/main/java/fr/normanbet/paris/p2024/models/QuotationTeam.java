@@ -13,6 +13,10 @@ import java.util.Set;
 @Table(name = "quotation_team")
 @PrimaryKeyJoinColumn(name = "id")
 public class QuotationTeam extends Quotation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+
     @ManyToOne
     private Country country;
 
@@ -20,5 +24,3 @@ public class QuotationTeam extends Quotation {
     @OrderBy("order ASC")
     private Set<Participation> teamMembers = new LinkedHashSet<>();
 }
-
-

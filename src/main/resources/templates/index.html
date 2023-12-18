@@ -1,12 +1,12 @@
 {{> /include/header}}
-<div class="container">
+<div >
     <h1 class="titre-gris">Norman<span class="titre-vert">BET</span></h1>
 </div>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<div class="container">
+<div>
 {{#user}}
 <span class="badge bg-success">{{username}}</span>
     <a href="#" onclick="document.getElementById('logout-form').submit()" class="btn btn-danger">Se déconnecter</a>
@@ -24,7 +24,7 @@
 {{/user}}
 </div>
 <!--Container-->
-<div class="container">
+<div>
     <div class="row mb-2">
         <div class="col-12 pt-3">
             <h2 class="titre-gris">Fil <span class="titre-vert">D'actualité</span> </h2>
@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                             <!--title-->
-                                            <a href="/article/{{title}}{{id}}">
+                                            <a href="/article/{{title}}/{{id}}">
                                                 <h2 class="h3 post-title text-white my-1">{{title}}</h2>
                                             </a>
                                             <!-- meta title -->
@@ -93,7 +93,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -115,7 +115,7 @@
 
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="">
@@ -124,7 +124,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -152,7 +152,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -169,7 +169,7 @@
                                 <div class="position-relative">
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="blog website templates bootstrap">
@@ -178,7 +178,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/article/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -196,7 +196,7 @@
     </div>
     <!--end code-->
 </div>
-<div class="container">
+<div>
     <h2 class="titre-gris">Paris <span class="titre-vert">En cours</span> </h2>
 </div>
 

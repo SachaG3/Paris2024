@@ -8,5 +8,6 @@ import java.util.List;
 public interface AthleteRepository extends CrudRepository<Athlete, Long> {
 
     List<Athlete> findByFirstnameLikeOrLastnameLikeAllIgnoreCase(String firstname, String lastname);
+    List<Athlete> findByFirstnameIgnoreCaseContainingOrLastnameIgnoreCaseContaining(String firstname, String lastname);
 
 }

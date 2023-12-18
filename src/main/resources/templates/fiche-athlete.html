@@ -1,0 +1,38 @@
+{{> include/header}}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4"><span class="titre-gris">Informations</span> <span class="titre-vert">sur l'athlète</span></h2>
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <img src="URL_DE_LA_PHOTO" alt="Photo de l'athlète" class="img-fluid">
+        </div>
+        <div class="col-sm-9">
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">Nom</dt>
+                <dd class="col-sm-9">{{participation.athlete.lastname}}</dd>
+
+                <dt class="col-sm-3 fw-bold">Prénom</dt>
+                <dd class="col-sm-9">{{participation.athlete.firstname}}</dd>
+
+                <dt class="col-sm-3 fw-bold">Date de naissance</dt>
+                <dd class="col-sm-9">{{participation.athlete.birthdate}}</dd>
+
+                <dt class="col-sm-3 fw-bold">Genre</dt>
+                <dd class="col-sm-9">{{participation.athlete.genre}}</dd>
+
+                <dt class="col-sm-3 fw-bold">Pays</dt>
+                <dd class="col-sm-9">{{participation.country.name}}</dd>
+
+                <dt class="col-sm-3">Sport</dt>
+                <dd class="col-sm-9">{{participation.sport.name}}</dd>
+
+                <dt class="col-sm-3 fw-bold">Discipline</dt>
+                <dd class="col-sm-9">{{participation.discipline.name}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+{{> include/footer}}
