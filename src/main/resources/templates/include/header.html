@@ -11,6 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
@@ -22,4 +25,46 @@
         <a href="tel:+33974751313" class="aJouerRisque">09 74 75 13 13</a>.<span id="appelNS">(Appel non surtaxé)
             </span></a></p>
 
+</div>
+<div class="navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light container">
+    <a class="navbar-brand" href="/">Accueil</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/actualite">Article</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bet">Parier</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/rechecheSportsAthletes">Recherche Athlete/sport</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            {{#activeUser}}
+            <li class="nav-item">
+                <span class="navbar-text mr-2">
+                    <a href="/user/{{activeUser.login}}">{{activeUser.login}}</a> - <a href="/portefeuille">Solde : {{activeUser.balance}}</a>
+                </span>
+            </li>
+            <li class="nav-item">
+                <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link">Déconnexion</a>
+                <form id="logout-form" action="/logout" method="post">
+                    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
+                </form>
+            </li>
+            {{/activeUser}}
+            {{^activeUser}}
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Se connecter</a>
+            </li>
+            {{/activeUser}}
+        </ul>
+    </div>
+</nav>
 </div>
