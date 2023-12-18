@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
@@ -21,7 +22,7 @@ public class Bet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private Long id;
-    private float amount;
+    private BigDecimal amount;
     private float quotation;
     private LocalDateTime dateB;
 
