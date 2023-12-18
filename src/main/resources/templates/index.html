@@ -1,30 +1,15 @@
 {{> /include/header}}
-<div >
+<div class="container">
     <h1 class="titre-gris">Norman<span class="titre-vert">BET</span></h1>
 </div>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<div>
-{{#user}}
-<span class="badge bg-success">{{username}}</span>
-    <a href="#" onclick="document.getElementById('logout-form').submit()" class="btn btn-danger">Se déconnecter</a>
-    <a class="btn" href="/user/{{username}}">Profil</a>
-    <a href="/portefeuille" class="btn btn-primary">{{balance}} €</a>
-    <form id="logout-form" action="/logout" method="post">
-        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
-    </form>
-
-    {{/user}}
-{{^user}}
-<span class="badge bg-secondary">Non connecté </span>
-<a href="/login" class="btn btn-primary">Se connecter</a>
-    <a href="/register" class="btn btn-primary">s'incrire</a>
-{{/user}}
+<div class="container">
 </div>
 <!--Container-->
-<div>
+<div class="container">
     <div class="row mb-2">
         <div class="col-12 pt-3">
             <h2 class="titre-gris">Fil <span class="titre-vert">D'actualité</span> </h2>
@@ -46,7 +31,7 @@
                                     <div class="position-relative">
                                         <!--thumbnail img-->
                                         <div class="ratio_left-cover-1 image-wrapper">
-                                            <a href="/article/{{title}}{{id}}">
+                                            <a href="/actualite/{{title}}/{{id}}">
                                                 <img class="img-fluid w-100"
                                                      src="{{mainImg}}"
                                                      alt="#">
@@ -54,7 +39,7 @@
                                         </div>
                                         <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                             <!--title-->
-                                            <a href="/article/{{title}}/{{id}}">
+                                            <a href="/actualite/{{title}}/{{id}}">
                                                 <h2 class="h3 post-title text-white my-1">{{title}}</h2>
                                             </a>
                                             <!-- meta title -->
@@ -84,7 +69,7 @@
                                 <div class="position-relative">
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/actualite/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="">
@@ -93,7 +78,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}/{{id}}">
+                                        <a href="/article/{{title}}{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -115,7 +100,7 @@
 
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}/{{id}}">
+                                        <a href="/actualite/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="">
@@ -124,7 +109,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}/{{id}}">
+                                        <a href="/article/{{title}}{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -143,7 +128,7 @@
                                 <div class="position-relative">
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}{{id}}">
+                                        <a href="/actualite/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="">
@@ -152,7 +137,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}/{{id}}">
+                                        <a href="/article/{{title}}{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -169,7 +154,7 @@
                                 <div class="position-relative">
                                     <!--thumbnail img-->
                                     <div class="ratio_right-cover-2 image-wrapper">
-                                        <a href="/article/{{title}}/{{id}}">
+                                        <a href="/actualite/{{title}}/{{id}}">
                                             <img class="img-fluid"
                                                  src="{{mainImg}}"
                                                  alt="blog website templates bootstrap">
@@ -178,7 +163,7 @@
                                     <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
                                         <!-- category -->
                                         <!--title-->
-                                        <a href="/article/{{title}}/{{id}}">
+                                        <a href="/actualite/{{title}}/{{id}}">
                                             <h2 class="h5 text-white my-1">{{title}}</h2>
                                         </a>
                                     </div>
@@ -196,8 +181,30 @@
     </div>
     <!--end code-->
 </div>
-<div>
-    <h2 class="titre-gris">Paris <span class="titre-vert">En cours</span> </h2>
+<div class="container mt-4">
+    <h2 class="titre-gris">Paris <span class="titre-vert">En cours</span></h2>
+    <div class="list-group">
+        {{#derniersEvenements}}
+        <div class="list-group-item rounded mb-3">
+            <!-- Informations sur le match -->
+            <div class="mb-2">
+                <p class="text-center"><strong>{{RelativeFormattedDate}}</strong> - {{discipline.name}} - {{description}}</p>
+            </div>
+
+            <!-- Affichage des équipes ou des athlètes -->
+            <div class="d-flex justify-content-between athlete-buttons">
+                {{#quotations}}
+                <a href="bet/{{id}}" class="btn btn-primary athlete-button rounded">
+                    {{#country}}{{country.name}} - {{/country}}
+                    {{^country}}{{#participation}}{{#athlete}}{{lastname}}{{/athlete}}{{/participation}} - {{/country}}
+                    {{quotation}}
+                </a>
+                {{/quotations}}
+            </div>
+        </div>
+        {{/derniersEvenements}}
+    </div>
 </div>
+
 
 {{> /include/footer}}
