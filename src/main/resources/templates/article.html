@@ -1,0 +1,53 @@
+
+
+{{> include/header}}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+
+            <h1 class="titre-gris mb-4">Norman<span class="titre-vert">BET</span></h1>
+
+
+            <div class="mb-4">
+                <h2>{{article.title}}</h2>
+                <!-- Utilisation de la classe text-justify pour justifier le texte -->
+                <p class="text-justify">{{article.content}}</p>
+            </div>
+
+            <div class="mb-4">
+                <img src="{{article.mainImg}}" class="img-fluid" alt="Image de l'article" data-toggle="modal" data-target="#imageModal">
+            </div>
+
+            <div class="text-muted text-right mb-4">
+                <small>{{article.getRelativeFormattedDate}}</small>
+            </div>
+
+            <!-- Bouton pour revenir en arrière -->
+            <a href="http://localhost:8080/actualite" class="btn btn-primary">Retour</a>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">{{article.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{article.mainImg}}" class="img-fluid" alt="Image en grand">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> include/footer}}
