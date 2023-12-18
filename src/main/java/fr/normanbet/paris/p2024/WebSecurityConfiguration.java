@@ -38,17 +38,20 @@ public class WebSecurityConfiguration {
                                         AntPathRequestMatcher.antMatcher("/css/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/images/**"),
-                                        AntPathRequestMatcher.antMatcher("/js/**"),
-                                        AntPathRequestMatcher.antMatcher("/portefeuille/**")
+                                        AntPathRequestMatcher.antMatcher("/js/**")
                                         )
                                 .permitAll();
 
                             req.requestMatchers(
-                                            AntPathRequestMatcher.antMatcher("/gestion/**")
+                                            AntPathRequestMatcher.antMatcher("/gestion/**"),
+                                            AntPathRequestMatcher.antMatcher("/bet/**")
                                     )
                                     .hasRole("ADMIN");
                             req.requestMatchers(
-                                            AntPathRequestMatcher.antMatcher("/user/**")
+                                            AntPathRequestMatcher.antMatcher("/user/**"),
+                                            AntPathRequestMatcher.antMatcher("/portefeuille/**"),
+                                            AntPathRequestMatcher.antMatcher("/bet/**"),
+                                            AntPathRequestMatcher.antMatcher("/bet/place")
                                     )
                                     .hasRole("USER")
                                         .anyRequest()

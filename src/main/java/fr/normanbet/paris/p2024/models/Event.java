@@ -1,8 +1,10 @@
 package fr.normanbet.paris.p2024.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -123,4 +125,32 @@ public class Event {
         }
         return "";
     }
+    public String getRelativeFormattedDate() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = now.toLocalDate();
+        LocalDate yesterday = today.minusDays(1);
+        LocalDate tomorrow = today.plusDays(1);
+        LocalDate dateOfEvent = dateEvent.toLocalDate();
+
+        if (dateOfEvent.equals(today)) {
+            // Si l'événement est aujourd'hui, affichez l'heure
+            return dateEvent.format(DateTimeFormatter.ofPattern("HH:mm"));
+        } else if (dateOfEvent.equals(yesterday)) {
+            // Si l'événement était hier
+            return "Hier";
+        } else if (dateOfEvent.equals(tomorrow)) {
+            // Si l'événement est demain
+            return "Demain";
+        } else if (dateEvent.isAfter(now) && dateEvent.isBefore(now.plusWeeks(1))) {
+            // Si l'événement est plus tard cette semaine
+            return "Cette semaine";
+        } else if (dateEvent.isAfter(now.plusWeeks(1)) && dateEvent.isBefore(now.plusWeeks(2))) {
+            // Si l'événement est la semaine prochaine
+            return "La semaine prochaine";
+        } else {
+            // Pour les dates futures plus éloignées
+            return dateEvent.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.FRANCE));
+        }
+    }
+
 }

@@ -1,0 +1,23 @@
+{{> /include/header}}
+<body>
+<div class="container mt-4">
+    <h1>Placer un Pari</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{quotation.event.discipline.name}} - {{quotation.event.RelativeFormattedDate}}</h5>
+            <p class="card-text">{{quotation.event.description}}</p>
+            <!-- Formulaire pour placer un pari -->
+            <form action="/bet/place" method="post">
+                <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
+                <div class="form-group">
+                    <label for="amount">Montant du Pari</label>
+                    <input type="number" class="form-control" id="amount" name="amount">
+                </div>
+                <input type="hidden" name="quotationId" value="{{quotation.id}}">
+                <button type="submit" class="btn btn-primary">Placer Pari</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+{{> /include/footer}}

@@ -11,4 +11,6 @@ import java.util.List;
 public interface NewsRepository extends JpaRepository<News, Long> {
 
     List<News> findAllByOrderByDateNDesc(Pageable pageable);
+
+    List<News> findByTitleContainingIgnoreCase(String search);
 }
