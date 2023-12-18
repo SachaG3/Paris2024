@@ -1,16 +1,35 @@
 {{> include/header}}
 
-<h1>Mise à jour de l'Athlète</h1>
-<form action="/athletes/update/{{athlete.id}}" method="post">
-    <input type="text" name="firstname" value="{{athlete.firstname}}" placeholder="Prénom">
-    <input type="text" name="lastname" value="{{athlete.lastname}}" placeholder="Nom">
-    <input type="date" name="birthdate" value="{{athlete.birthdate}}">
-    <select name="genre">
-        <option value="HOMME">Homme</option>
-        <option value="FEMME">Femme</option>
-        <!-- Ajoutez d'autres genres si nécessaire -->
-    </select>
-    <button type="submit">Mettre à jour</button>
-</form>
+<div class="container mt-5">
+    <h1><span class="titre-gris">Mise à jour </span><span class="titre-vert">de l'Athlète</span></h1>
+    <form action="/athletes/update/{{athlete.id}}" method="post">
+
+        <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" value="{{athlete.firstname}}" placeholder="Prénom" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" value="{{athlete.lastname}}" placeholder="Nom" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="birthdate" class="form-label">Date de naissance</label>
+            <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{athlete.birthdate}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="genre" class="form-label">Genre</label>
+            <select class="form-select" id="genre" name="genre" required>
+                <option value="HOMME" >Homme</option>
+                <option value="FEMME" >Femme</option>
+                <!-- Ajoutez d'autres genres si nécessaire -->
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+</div>
 
 {{> include/footer}}
