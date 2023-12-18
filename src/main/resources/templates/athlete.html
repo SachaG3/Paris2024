@@ -1,4 +1,5 @@
 {{> include/header}}
+
 <div class="container">
 
     <form method="get" id="search-form" action="athletes/recherche" class="mb-4">
@@ -28,10 +29,14 @@
                 <a href="athletes/modifierunathlete/{{id}}" class="btn btn-warning">
                     <i class="fas fa-pencil-alt"></i> Modifier
                 </a>
+                <a href="athletes/ficheathlete/{{id}}" class="btn btn-info">
+                    <i class="fas fa-user"></i> Info
+                </a>
             </td>
         </tr>
         {{/athleteList}}
         </tbody>
     </table>
 </div>
+
 {{> include/footer}}
