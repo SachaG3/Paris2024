@@ -39,7 +39,7 @@ public class BetController {
             return "redirect:/bet";
         }
         model.addAttribute("quotation", quotation);
-        return "/bet/placeBet";
+        return "/bet/placebet";
     }
     @Autowired
     private BetRepository betRepository;
