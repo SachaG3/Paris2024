@@ -52,5 +52,3 @@ public abstract class Quotation {
         return event.isFinal() && this.rank == 3;
     }
 }
-
-

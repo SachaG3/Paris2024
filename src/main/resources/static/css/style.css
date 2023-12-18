@@ -1,5 +1,11 @@
-
-
+.container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.main-container {
+    flex: 1;
+}
 .titre-vert{
     color:#557A46;
 }
@@ -54,4 +60,9 @@
 .zoom:hover img {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+footer {
+
+    background-color: rgba(0, 0, 0, 0.05);
 }

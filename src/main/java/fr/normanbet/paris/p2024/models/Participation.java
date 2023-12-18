@@ -38,6 +38,9 @@ public class Participation {
 
     @ManyToMany(mappedBy = "teamMembers", fetch = FetchType.LAZY)
     private Set<QuotationTeam> quotationTeams = new LinkedHashSet<>();
+
+
+
 }
 
 

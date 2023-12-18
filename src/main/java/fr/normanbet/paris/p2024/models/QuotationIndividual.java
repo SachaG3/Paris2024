@@ -10,6 +10,9 @@ import lombok.Setter;
 @Table(name = "quotation_individual")
 @PrimaryKeyJoinColumn(name = "id")
 public class QuotationIndividual extends Quotation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
 
     @ManyToOne(optional = false)
     private Participation participation;
@@ -20,7 +23,3 @@ public class QuotationIndividual extends Quotation {
     }
 
 }
-
-
-
-
