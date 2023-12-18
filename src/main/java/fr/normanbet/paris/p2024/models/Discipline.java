@@ -25,9 +25,6 @@ public class Discipline {
     @OneToMany(mappedBy = "discipline")
     private List<Event> events=new ArrayList<>();
 
-    @ManyToOne(optional = false)
-    @JsonIgnore
-    private Sport sport;
 
     @ManyToMany
     private List<Olympiad> olympiads=new ArrayList<>();
