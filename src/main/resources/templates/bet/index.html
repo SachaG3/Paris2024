@@ -1,38 +1,25 @@
 {{> /include/header}}
-<head>
-    <style>
-        .athlete-buttons {
-            flex-wrap: wrap;
-        }
-        .athlete-button {
-            margin-bottom: 10px; /* Ajoute un peu d'espace entre les lignes */
-        }
-    </style>
-</head>
 <body>
 <div class="container mt-4">
     <h1>Matchs en cours et futurs</h1>
     <div class="list-group">
         {{#matchs}}
         <div class="list-group-item">
-            <div class="row align-items-center">
-                <div class="col-md-3">
-                    <strong>{{RelativeFormattedDate}}</strong> - {{discipline.name}}
-                </div>
-                <div class="col-md-9">
-                    <div class="d-flex athlete-buttons">
-                        {{#quotations}}
-                        <!-- Pour les équipes ou les athlètes -->
-                        <a href="bet/{{id}}" class="btn btn-primary mr-2 athlete-button">
-                            {{#country}}{{country.name}} {{/country}}
-                            {{^country}}{{#participation}}{{#athlete}}{{lastname}}{{/athlete}}{{/participation}}{{/country}}
-                            - {{quotation}}
-                        </a>
-                        {{/quotations}}
-                    </div>
-                </div>
+            <!-- Informations sur le match -->
+            <div class="mb-2">
+                <p class="text-center"><strong>{{RelativeFormattedDate}}</strong> - {{discipline.name}} - {{description}}</p>
             </div>
-            <p class="mt-2">{{description}}</p>
+
+            <!-- Affichage des équipes ou des athlètes -->
+            <div class="d-flex justify-content-between athlete-buttons">
+                {{#quotations}}
+                <a href="bet/{{id}}" class="btn btn-primary athlete-button">
+                    {{#country}}{{country.name}} - {{/country}}
+                    {{^country}}{{#participation}}{{#athlete}}{{lastname}}{{/athlete}}{{/participation}} - {{/country}}
+                    {{quotation}}
+                </a>
+                {{/quotations}}
+            </div>
         </div>
         {{/matchs}}
     </div>
