@@ -84,7 +84,6 @@ public class athleteController {
             model.addAttribute("discipline", participationEntity.getDiscipline());
             model.addAttribute("country", participationEntity.getCountry());
             model.addAttribute("olympiad", participationEntity.getOlympiad());
-            model.addAttribute("sport", participationEntity.getSport());
             return "fiche-athlete";
         } else {
             throw new RuntimeException("Participation not found for athlete with id: " + id);
