@@ -17,6 +17,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByDiscipline(Discipline discipline);
     List<Event> findByDateEventAfter(LocalDateTime date);
+    List<Event> findTop5ByOrderByDateEventDesc();
 
     @Query("SELECT e FROM Event e WHERE e.dateEvent >= CURRENT_DATE")
     List<Event> findCurrentAndFutureEvents();
