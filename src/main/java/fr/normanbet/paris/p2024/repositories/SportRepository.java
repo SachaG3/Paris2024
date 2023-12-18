@@ -8,4 +8,7 @@ import java.util.List;
 public interface SportRepository extends CrudRepository<Sport, Long> {
 
     List<Sport> findByNameIgnoreCaseStartingWith(String text);
+
+    List<Sport> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String name, String description);
+
 }
