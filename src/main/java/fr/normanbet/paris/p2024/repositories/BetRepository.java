@@ -18,6 +18,8 @@ public interface BetRepository extends JpaRepository<Bet, Long> {
     @Query("SELECT b FROM Bet b JOIN FETCH b.officialQuotation o JOIN FETCH o.event e JOIN FETCH e.venue WHERE e.status = :status")
     List<Bet> findAllBetsWithDetailsByEventStatus(@Param("status") EventStatusType status);
 
+    boolean existsByUserAndIsActive(User user, boolean isActive);
+
 
 
 }
