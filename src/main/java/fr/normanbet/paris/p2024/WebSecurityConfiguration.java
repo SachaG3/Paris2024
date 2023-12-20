@@ -44,6 +44,7 @@ public class WebSecurityConfiguration {
 
                             req.requestMatchers(
                                             AntPathRequestMatcher.antMatcher("/gestion/**"),
+                                            AntPathRequestMatcher.antMatcher("/gestion/**/**"),
                                             AntPathRequestMatcher.antMatcher("/bet/**")
                                     )
                                     .hasRole("ADMIN");

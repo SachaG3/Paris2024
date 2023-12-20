@@ -42,8 +42,13 @@
                 <a class="nav-link" href="/bet">Parier</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/rechercheSportsAthletes">Recherche Athlete/sport</a>
+                <a class="nav-link" href="/resultats">Resultats</a>
             </li>
+            {{#isAdmin}}
+            <li class="nav-item">
+                <a class="nav-link" href="/gestion/adminpanel">Admin</a>
+            </li>
+            {{/isAdmin}}
         </ul>
         <ul class="navbar-nav">
             {{#activeUser}}
@@ -66,6 +71,10 @@
                 </span>
             </li>
             {{/activeUser}}
+            <form action="/rechercheSportsAthletes" method="GET">
+                <input type="text" id="search" name="q" placeholder="Rechercher...">
+                <button type="submit">Rechercher</button>
+            </form>
         </ul>
     </div>
 </nav>

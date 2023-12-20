@@ -1,8 +1,6 @@
 {{> /include/header}}
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rechercher</title>
+<div class="container">
+    <h1><span class="titre-gris">Reche</span><span class="titre-vert">rcher</span></h1>
 
 
     <form action="/rechercheSportsAthletes" method="GET">
@@ -19,8 +17,9 @@
     </tr>
     {{#athleteList}}
     <tr>
-        <td>{{firstname}}</td>
-        <td>{{lastname}}</td>
+        <td><a href="/athlete/ficheathlete/{{id}}">{{firstname}}</a></td>
+        <td><a href="/athlete/ficheathlete/{{id}}">{{lastname}}</a></td>
+
     </tr>
     {{/athleteList}}
 </table>
@@ -39,6 +38,6 @@
     {{/sportList}}
 </table>
 
-
+</div>
 
 {{> /include/footer}}
