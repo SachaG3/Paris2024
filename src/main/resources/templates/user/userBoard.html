@@ -9,6 +9,7 @@
 {{/user}}
     <form action="/user/deleteAccount" method="post">
         <button methods="post" class="btn btn-danger" type="submit">Supprimer mon compte</button>
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
     </form>
 </div>
 {{> /include/footer }}

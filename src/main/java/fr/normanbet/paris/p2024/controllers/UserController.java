@@ -2,6 +2,7 @@ package fr.normanbet.paris.p2024.controllers;
 
 import fr.normanbet.paris.p2024.models.Role;
 import fr.normanbet.paris.p2024.models.VerificationToken;
+import fr.normanbet.paris.p2024.repositories.BetRepository;
 import fr.normanbet.paris.p2024.repositories.RoleRepository;
 import fr.normanbet.paris.p2024.repositories.VerificationTokenRepository;
 import fr.normanbet.paris.p2024.services.DbUserService;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import fr.normanbet.paris.p2024.models.User;
 import fr.normanbet.paris.p2024.repositories.UserRepository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,8 +47,8 @@ public class UserController {
     private VerificationTokenService  verificationTokenService;
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
-
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    @Autowired
+    private BetRepository betRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -191,6 +193,28 @@ public class UserController {
         return "/user/userBoard";
 
     }
+    @PostMapping("/user/deleteAccount")
+    public String deleteAccount(@AuthenticationPrincipal User user, RedirectAttributes redirectAttributes) {
+        // Vérifier si l'utilisateur a un solde positif
+        if (user.getBalance().compareTo(BigDecimal.ZERO) > 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Impossible de désactiver le compte car il reste un solde.");
+            return "/user/profiles";
+        }
+
+        // Vérifier si l'utilisateur a des paris actifs
+        if (betRepository.existsByUserAndIsActive(user, true)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Impossible de désactiver le compte car il y a des paris en cours.");
+            return "/user/profiles";
+        }
+
+        // Désactiver le compte
+        user.setActive(false);
+        userRepository.save(user);
+
+        redirectAttributes.addFlashAttribute("message", "Votre compte a été désactivé.");
+        return "/logout";
+    }
+
 
 
 
