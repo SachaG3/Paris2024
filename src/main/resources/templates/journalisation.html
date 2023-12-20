@@ -1,0 +1,37 @@
+{{> include/header}}
+
+<div class="container">
+    <h1><span class="titre-gris">Journalisation</span> <span class="titre-vert">des Ajouts de Sports</span></h1>
+
+    <!-- Supprimer de la journalisation et de la base de données -->
+    <form id="deleteForm" action="/ajouterunsport/journalisation/delete" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+
+        <ul>
+            {{#journalisations}}
+            <li>
+                <input type="checkbox" name="selectedItems" value="{{id}}">
+                <strong>Utilisateur :</strong> {{addedBy}}
+                <br>
+                <strong>Contenu :</strong> {{sportName}}
+                <hr>
+            </li>
+            {{/journalisations}}
+        </ul>
+
+        <button type="button" class="btn btn-danger" id="deleteButton">Supprimer de la base de données</button>
+        <button type="submit" class="btn btn-warning">Supprimer les logs</button>
+        <a href="/adminpanel" class="btn btn-primary">Retour</a>
+    </form>
+
+
+</div>
+
+<script>
+    document.getElementById('deleteButton').addEventListener('click', function() {
+        // Soumettre le formulaire de suppression de la base de données lors du clic sur le bouton
+        document.getElementById('deleteForm').submit();
+    });
+</script>
+
+{{> include/footer}}

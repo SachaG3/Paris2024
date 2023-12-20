@@ -1,0 +1,210 @@
+{{> /include/header}}
+<div class="container">
+    <h1 class="titre-gris">Norman<span class="titre-vert">BET</span></h1>
+</div>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+</div>
+<!--Container-->
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-12 pt-3">
+            <h2 class="titre-gris">Fil <span class="titre-vert">D'actualité</span> </h2>
+        </div>
+    </div>
+
+    <!--Start code-->
+    <div class="row">
+        <div class="col-12 pb-5">
+            <!--SECTION START-->
+            <section class="row">
+                <!--Start slider news-->
+                <div class="col-12 col-md-6 pb-0 pb-md-3 pt-2 pr-md-1">
+                    <div id="featured" class="carousel slide carousel" data-ride="carousel">
+
+                        <!--carousel inner-->
+                        <div class="carousel-inner">
+                            {{#news.0}}
+                                    <div class="position-relative">
+                                        <!--thumbnail img-->
+                                        <div class="ratio_left-cover-1 image-wrapper">
+                                            <a href="/actualite/{{title}}/{{id}}">
+                                                <img class="img-fluid w-100"
+                                                     src="{{mainImg}}"
+                                                     alt="#">
+                                            </a>
+                                        </div>
+                                        <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+                                            <!--title-->
+                                            <a href="/actualite/{{title}}/{{id}}">
+                                                <h2 class="h3 post-title text-white my-1">{{title}}</h2>
+                                            </a>
+                                            <!-- meta title -->
+                                            <div class="news-meta">
+                                                <span class="news-author">by <a class="text-white font-weight-bold" href="#">{{author.lastname}} {{author.firstname}}</a></span>
+                                                <span class="news-date">{{dateN}}</span>
+                                            </div>
+
+                                </div>
+                            </div>
+                            {{/news.0}}
+                        </div>
+                    </div>
+                </div>
+                <!--End slider news-->
+
+                <!--Start box news-->
+
+                <div class="col-12 col-md-6 pt-2 pl-md-1 mb-3 mb-lg-4">
+
+                    <div class="row">
+                        <!--news box-->
+                        {{#news.1}}
+                        <div class="col-6 pb-1 pt-0 pr-1">
+                            <div class="card border-0 rounded-0 text-white overflow zoom">
+
+                                <div class="position-relative">
+                                    <!--thumbnail img-->
+                                    <div class="ratio_right-cover-2 image-wrapper">
+                                        <a href="/actualite/{{title}}/{{id}}">
+                                            <img class="img-fluid"
+                                                 src="{{mainImg}}"
+                                                 alt="">
+                                        </a>
+                                    </div>
+                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+                                        <!-- category -->
+                                        <!--title-->
+                                        <a href="/article/{{title}}{{id}}">
+                                            <h2 class="h5 text-white my-1">{{title}}</h2>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        {{/news.1}}
+
+                        <!--news box-->
+                        {{#news.2}}
+                        <div class="col-6 pb-1 pl-1 pt-0">
+
+                            <div class="card border-0 rounded-0 text-white overflow zoom">
+
+                                <div class="position-relative">
+
+                                    <!--thumbnail img-->
+                                    <div class="ratio_right-cover-2 image-wrapper">
+                                        <a href="/actualite/{{title}}/{{id}}">
+                                            <img class="img-fluid"
+                                                 src="{{mainImg}}"
+                                                 alt="">
+                                        </a>
+                                    </div>
+                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+                                        <!-- category -->
+                                        <!--title-->
+                                        <a href="/article/{{title}}{{id}}">
+                                            <h2 class="h5 text-white my-1">{{title}}</h2>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        {{/news.2}}
+
+                        <!--news box-->
+                        {{#news.3}}
+                        <div class="col-6 pb-1 pr-1 pt-1">
+
+                            <div class="card border-0 rounded-0 text-white overflow zoom">
+                                <div class="position-relative">
+                                    <!--thumbnail img-->
+                                    <div class="ratio_right-cover-2 image-wrapper">
+                                        <a href="/actualite/{{title}}/{{id}}">
+                                            <img class="img-fluid"
+                                                 src="{{mainImg}}"
+                                                 alt="">
+                                        </a>
+                                    </div>
+                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+                                        <!-- category -->
+                                        <!--title-->
+                                        <a href="/article/{{title}}{{id}}">
+                                            <h2 class="h5 text-white my-1">{{title}}</h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {{/news.3}}
+
+                        <!--news box-->
+                        {{#news.4}}
+                        <div class="col-6 pb-1 pl-1 pt-1">
+                            <div class="card border-0 rounded-0 text-white overflow zoom">
+                                <div class="position-relative">
+                                    <!--thumbnail img-->
+                                    <div class="ratio_right-cover-2 image-wrapper">
+                                        <a href="/actualite/{{title}}/{{id}}">
+                                            <img class="img-fluid"
+                                                 src="{{mainImg}}"
+                                                 alt="blog website templates bootstrap">
+                                        </a>
+                                    </div>
+                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+                                        <!-- category -->
+                                        <!--title-->
+                                        <a href="/actualite/{{title}}/{{id}}">
+                                            <h2 class="h5 text-white my-1">{{title}}</h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/news.4}}
+                        <!--end news box-->
+                    </div>
+                </div>
+                <!--End box news-->
+            </section>
+            <!--END SECTION-->
+        </div>
+    </div>
+    <!--end code-->
+</div>
+<div class="container mt-4">
+    <h2 class="titre-gris">Paris <span class="titre-vert">En cours</span></h2>
+    <div class="list-group">
+        {{#derniersEvenements}}
+        <div class="list-group-item rounded mb-3">
+            <!-- Informations sur le match -->
+            <div class="mb-2">
+                <p class="text-center"><strong>{{RelativeFormattedDate}}</strong> - {{discipline.name}} - {{description}}</p>
+            </div>
+
+            <!-- Affichage des équipes ou des athlètes -->
+            <div class="d-flex justify-content-between athlete-buttons">
+                {{#quotations}}
+                <a href="bet/{{id}}" class="btn btn-primary athlete-button rounded">
+                    {{#country}}{{country.name}} - {{/country}}
+                    {{^country}}{{#participation}}{{#athlete}}{{lastname}}{{/athlete}}{{/participation}} - {{/country}}
+                    {{quotation}}
+                </a>
+                {{/quotations}}
+            </div>
+        </div>
+        {{/derniersEvenements}}
+    </div>
+</div>
+
+
+{{> /include/footer}}

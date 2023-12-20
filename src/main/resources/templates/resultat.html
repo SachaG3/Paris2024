@@ -1,0 +1,156 @@
+{{> /include/header}}
+
+<body xmlns="http://www.w3.org/1999/html">
+<div class="container mt-5">
+    <h1><span class="titre-gris">Liste</span><span class="titre-vert"> des Résultats</span></h1>
+
+    <!-- Barre de recherche -->
+    <div class="input-group mb-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par pays/athlète">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" id="searchButton">Rechercher</button>
+        </div>
+    </div>
+
+    <div id="resultContainer">
+        {{#events}}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>{{#discipline}}{{#sport}}{{name}} {{/sport}}{{name}}{{/discipline}}</h2>
+                <h3>{{description}}</h3>
+            </div>
+            <div class="card-body">
+                <h4>Quotations</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Pays/athlète</th>
+                            <th>Gagnant</th>
+                            <th>Quotation</th>
+                            <th>Score</th>
+                            <th>Rang</th>
+                            <th>Number</th>
+                            <th>Ordre</th>
+                            <th>Date de l'événement</th>
+                            <th>Organisation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#quotations}}
+                        <tr>
+                            <td>
+                                {{#participation}}
+                                {{#athlete}}
+                                {{lastname}}
+                                {{/athlete}}
+                                {{/participation}}
+                                {{#country}}
+                                {{name}}
+                                {{/country}}
+                            </td>
+                            <td>{{isWinner}}</td>
+                            <td>{{quotation}}</td>
+                            <td>{{score}}</td>
+                            <td>{{rank}}</td>
+                            <td>{{number}}</td>
+                            <td>{{order}}</td>
+                            <td>{{event.formattedDate}}</td>
+                            <td>{{organization}}</td>
+                        </tr>
+                        {{/quotations}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{/events}}
+    </div>
+
+    <!-- Pagination -->
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination">
+                <li class="page-item disabled" id="prevPage">
+                    <button class="page-link" tabindex="-1">Précédent</button>
+                </li>
+                <li class="page-item" id="nextPage">
+                    <button class="page-link">Suivant</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{{> /include/footer}}
+
+<!-- Script pour la barre de recherche et pagination -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var searchInput = document.getElementById("searchInput");
+        var searchButton = document.getElementById("searchButton");
+        var eventItems = document.querySelectorAll(".card");
+        var itemsPerPage = 3;
+        var currentPage = 1;
+        var totalPages = Math.ceil(eventItems.length / itemsPerPage);
+
+        updatePagination();
+
+        searchButton.addEventListener("click", function () {
+            performSearch();
+        });
+
+        searchInput.addEventListener("input", function () {
+            performSearch();
+        });
+
+        function performSearch() {
+            var searchTerm = searchInput.value.toLowerCase();
+
+            eventItems.forEach(function (eventItem) {
+                var countryAthleteElement = eventItem.querySelector("td:first-child");
+                var countryAthleteText = countryAthleteElement.innerText.toLowerCase();
+
+                if (countryAthleteText.includes(searchTerm)) {
+                    eventItem.style.display = "block";
+                } else {
+                    eventItem.style.display = "none";
+                }
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            var startIndex = (currentPage - 1) * itemsPerPage;
+
+            eventItems.forEach(function (eventItem, index) {
+                if (index >= startIndex && index < startIndex + itemsPerPage) {
+                    eventItem.style.display = "block";
+                } else {
+                    eventItem.style.display = "none";
+                }
+            });
+
+            document.getElementById("prevPage").classList.toggle("disabled", currentPage === 1);
+            document.getElementById("nextPage").classList.toggle("disabled", currentPage === totalPages);
+        }
+
+        document.getElementById("nextPage").addEventListener("click", function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+            }
+        });
+
+        document.getElementById("prevPage").addEventListener("click", function () {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
