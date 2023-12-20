@@ -27,17 +27,12 @@ class MainAdvice {
     }
     @ModelAttribute("isAdmin")
     public boolean isAdmin(Authentication authentication) {
-        if (authentication == null) {
+        if (authentication == null || !(authentication.getPrincipal() instanceof User)) {
             return false;
         }
 
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof User) {
-            User user = (User) principal;
-            return user.getId() == 2; // Vérifie si l'ID de l'utilisateur est 2
-        }
-
-        return false;
+        User user = (User) authentication.getPrincipal();
+        // Supposons que votre entité User ait une méthode getRole() qui retourne l'entité Role
+        return user.getRole() != null && user.getRole().getId() == 2; // Vérifie si l'ID du rôle est 2
     }
-
 }
