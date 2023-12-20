@@ -25,6 +25,7 @@ public class Bet {
     private BigDecimal amount;
     private float quotation;
     private LocalDateTime dateB;
+    private boolean isActive;
 
 
     @ManyToOne
@@ -32,6 +33,8 @@ public class Bet {
 
     @ManyToOne
     private User user;
+
+
 
 
 }
