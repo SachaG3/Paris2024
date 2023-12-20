@@ -95,7 +95,7 @@ public class UserController {
 
             String recipientAddress = user.getEmail();
             String subject = "Confirmation d'inscription";
-            String confirmationUrl = "http://localhost:8080/regitrationConfirm?token=" + token;
+            String confirmationUrl = "http://srv2-vm-2116.sts-sio-caen.info/regitrationConfirm?token=" + token;
             String message = "Pour confirmer votre inscription, veuillez ouvrir le lien suivant : " + confirmationUrl;
 
             emailService.sendSimpleMessage(recipientAddress, subject, message);
@@ -121,7 +121,7 @@ public class UserController {
 
             String recipientAddress = user.getEmail();
             String subject = "Confirmation d'inscription - Renvoi";
-            String confirmationUrl = "http://localhost:8080/regitrationConfirm?token=" + token;
+            String confirmationUrl = "http://srv2-vm-2116.sts-sio-caen.info/regitrationConfirm?token=" + token;
             String message = "Pour confirmer votre inscription, veuillez ouvrir le lien suivant : " + confirmationUrl;
 
             emailService.sendSimpleMessage(recipientAddress, subject, message);
@@ -153,7 +153,7 @@ public class UserController {
 
         String recipientAddress = user.getEmail();
         String subject = "Confirmation d'inscription - Renvoi";
-        String confirmationUrl = "http://localhost:8080/regitrationConfirm?token=" + token;
+        String confirmationUrl = "http://srv2-vm-2116.sts-sio-caen.info/regitrationConfirm?token=" + token;
         String message = "Pour confirmer votre inscription, veuillez ouvrir le lien suivant : " + confirmationUrl;
         emailService.sendSimpleMessage(recipientAddress, subject, message);
 
