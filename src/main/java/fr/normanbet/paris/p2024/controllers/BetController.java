@@ -59,6 +59,7 @@ public class BetController {
             newBet.setOfficialQuotation(quotation);
             newBet.setUser(user);
             newBet.setDateB(LocalDateTime.now());
+            newBet.setActive(true);
             betRepository.save(newBet);
 
             operationService.withdraw(user, amount);
