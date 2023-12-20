@@ -2,7 +2,8 @@
 
 <h2>Désactiver le Compte</h2>
 <p>Veuillez entrer votre mot de passe pour désactiver le compte.</p>
-<form method="post" action="/deactivate/{{user.id}}">
+<form method="post" action="/gestion/deactivate/{{user.id}}">
+    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
     <label for="password">Mot de passe :</label>
     <input type="password" id="password" name="password" required />
 

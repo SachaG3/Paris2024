@@ -2,7 +2,8 @@
 
 <div class="container">
 
-    <form method="get" id="search-form" action="athletes/recherche" class="mb-4">
+    <form method="get" id="search-form" action="athlete/recherche" class="mb-4">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
         <div class="input-group">
             <label for="athlete-search" class="visually-hidden">Rechercher un Athlète</label>
             <input type="search" id="athlete-search" name="nomAthlete" class="form-control" placeholder="Rechercher un Athlète" />
@@ -26,10 +27,10 @@
             <td>{{firstname}}</td>
             <td>{{lastname}}</td>
             <td>
-                <a href="athletes/modifierunathlete/{{id}}" class="btn btn-warning">
+                <a href="/gestion/athlete/modifierunathlete/{{id}}" class="btn btn-warning">
                     <i class="fas fa-pencil-alt"></i> Modifier
                 </a>
-                <a href="athletes/ficheathlete/{{id}}" class="btn btn-info">
+                <a href="/athlete/ficheathlete/{{id}}" class="btn btn-info">
                     <i class="fas fa-user"></i> Info
                 </a>
             </td>

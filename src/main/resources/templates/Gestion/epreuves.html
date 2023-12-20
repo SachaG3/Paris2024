@@ -15,15 +15,16 @@
             <td>{{type}}</td>
             <td>{{sport.name}}</td>
             <td>
-                <a href="/epreuves/edit/{{id}}">Éditer</a>
-                <a href="/epreuves/delete/{{id}}">Supprimer</a>
+                <a href="/gestion/epreuves/edit/{{id}}">Éditer</a>
+                <a href="/gestion/epreuves/delete/{{id}}">Supprimer</a>
             </td>
 
         </tr>
         {{/disciplineList}}
     </table>
     <h2>Ajouter une Épreuve</h2>
-    <form action="/epreuves/add" method="post">
+    <form action="/gestion/epreuves/add" method="post">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
         <label for="name">Nom:</label>
         <input type="text" id="name" name="name">
         <label for="type">Type:</label>
@@ -33,7 +34,8 @@
         <input type="submit" value="Ajouter">
     </form>
     {{#disciplineedit}}
-    <form action="/epreuves/edit/{{id}}" method="post">
+    <form action="/gestion/epreuves/edit/{{id}}" method="post">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
         <label for="name">Nom:</label>
         <input type="text" name="name" value="{{name}}">
         <label for="type">Type:</label>

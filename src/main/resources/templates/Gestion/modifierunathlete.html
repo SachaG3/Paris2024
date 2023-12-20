@@ -2,7 +2,8 @@
 
 <div class="container mt-5">
     <h1><span class="titre-gris">Mise à jour </span><span class="titre-vert">de l'Athlète</span></h1>
-    <form action="/athletes/update/{{athlete.id}}" method="post">
+    <form action="/gestion/athlete/update/{{athlete.id}}" method="post">
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
 
         <div class="mb-3">
             <label for="firstname" class="form-label">Prénom</label>

@@ -3,7 +3,7 @@
 <div class="container">
     <h1><span class="titre-gris">Liste</span> <span class="titre-vert">des Sports</h1>
 
-    <form method="get" id="search-form" action="/sports/recherche" class="mb-4">
+    <form method="get" id="search-form" action="/gestion/recherche" class="mb-4">
         <div class="input-group">
             <label for="sport-search" class="visually-hidden">Rechercher un Sport</label>
             <input type="search" id="sport-search" name="nomSport" class="form-control" placeholder="Rechercher un Sport" />
@@ -73,7 +73,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/sports/update/{{id}}" method="post" class="row g-3">
+                                <form action="/gestion/update/{{id}}" method="post" class="row g-3">
                                     <div class="col-md-6">
                                         <label for="name" class="form-label">Nom :</label>
                                         <input type="text" id="name" name="name" value="{{name}}" class="form-control" placeholder="Nom du sport" required>
